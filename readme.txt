@@ -12,7 +12,7 @@ Set a date to launch or suspend site. Choose which admins can see plugin. Make c
 
 == Description ==
 
-Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates nicely customizable "coming soon" and "site suspended" pages, with optional log-in for users. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin by <a href="http://masseltech.com/" target="_blank>Jeremy Massel</a>. If all you need is a "Coming Soon" page, <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> is highly recommended.
+Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates nicely customizable "coming soon" and "site suspended" pages, with optional log-in for users. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. If all you need is a "Coming Soon" page, <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> is highly recommended.
 
 == Installation ==
 
