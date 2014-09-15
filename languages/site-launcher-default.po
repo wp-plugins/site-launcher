@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-14 11:56-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: site-launcher-admin.php:325
+msgid ""
+"JavaScript appears to be disabled in your browser. For this plugin to work "
+"correctly, please enable JavaScript or switch to a more modern browser."
+msgstr ""
+
+#: site-launcher-admin.php:333
+msgid "Site Launcher"
+msgstr ""
+
+#: site-launcher-admin.php:342
+msgid "Select Mode"
+msgstr ""
+
+#: site-launcher-admin.php:347
+msgid "Website is Live"
+msgstr ""
+
+#: site-launcher-admin.php:349
+msgid "Launch Website"
+msgstr ""
+
+#: site-launcher-admin.php:351
+msgid "Unsuspend Website"
+msgstr ""
+
+#: site-launcher-admin.php:357
+msgid "Show \"Coming Soon\" page and/or schedule launch."
+msgstr ""
+
+#: site-launcher-admin.php:361
+msgid "Show \"Site Suspended\" page or shedule suspension."
+msgstr ""
+
+#: site-launcher-admin.php:372
+msgid "Coming Soon Settings"
+msgstr ""
+
+#: site-launcher-admin.php:379
+msgid "Automatic Launch"
+msgstr ""
+
+#: site-launcher-admin.php:383
+msgid "Launch site:"
+msgstr ""
+
+#: site-launcher-admin.php:387 site-launcher-admin.php:515
+#: site-launcher-admin.php:581 site-launcher-admin.php:709
+msgid "Login Form"
+msgstr ""
+
+#: site-launcher-admin.php:390
+msgid "When I select the \"Launch Website\" option"
+msgstr ""
+
+#: site-launcher-admin.php:393
+msgid "On a set date and time:"
+msgstr ""
+
+#: site-launcher-admin.php:429 site-launcher-admin.php:623
+msgid "Make sure your timezone is set correctly in Settings->General"
+msgstr ""
+
+#: site-launcher-admin.php:437 site-launcher-admin.php:631
+msgid "Customize Display"
+msgstr ""
+
+#: site-launcher-admin.php:442 site-launcher-admin.php:636
+msgid "Message Text:"
+msgstr ""
+
+#: site-launcher-admin.php:446 site-launcher-admin.php:640
+msgid "Fine Print:"
+msgstr ""
+
+#: site-launcher-admin.php:450 site-launcher-admin.php:644
+msgid "Background Color"
+msgstr ""
+
+#: site-launcher-admin.php:456 site-launcher-admin.php:650
+msgid "Text Color:"
+msgstr ""
+
+#: site-launcher-admin.php:462 site-launcher-admin.php:656
+msgid "Font:"
+msgstr ""
+
+#: site-launcher-admin.php:490 site-launcher-admin.php:684
+msgid "Message Box Width:"
+msgstr ""
+
+#: site-launcher-admin.php:496 site-launcher-admin.php:690
+msgid "Message Box Opacity:"
+msgstr ""
+
+#: site-launcher-admin.php:504 site-launcher-admin.php:698
+msgid "1 = white, 0 = transparent"
+msgstr ""
+
+#: site-launcher-admin.php:511 site-launcher-admin.php:705
+msgid "Show log-in form:"
+msgstr ""
+
+#: site-launcher-admin.php:518 site-launcher-admin.php:712
+msgid "Show"
+msgstr ""
+
+#: site-launcher-admin.php:521 site-launcher-admin.php:715
+msgid "Hide"
+msgstr ""
+
+#: site-launcher-admin.php:527 site-launcher-admin.php:721
+msgid "Log-in Message:"
+msgstr ""
+
+#: site-launcher-admin.php:537 site-launcher-admin.php:731
+msgid "IP Address Whitelist"
+msgstr ""
+
+#: site-launcher-admin.php:543 site-launcher-admin.php:737
+msgid "IP Address:"
+msgstr ""
+
+#: site-launcher-admin.php:543 site-launcher-admin.php:737
+msgid "Get Current Address"
+msgstr ""
+
+#: site-launcher-admin.php:555 site-launcher-admin.php:749
+msgid "Remove Selected IP Address"
+msgstr ""
+
+#: site-launcher-admin.php:566
+msgid "Site Suspended Settings"
+msgstr ""
+
+#: site-launcher-admin.php:573
+msgid "Automatic Suspend"
+msgstr ""
+
+#: site-launcher-admin.php:577
+msgid "Suspend site:"
+msgstr ""
+
+#: site-launcher-admin.php:584
+msgid "Now"
+msgstr ""
+
+#: site-launcher-admin.php:587
+msgid "On this date and time:"
+msgstr ""
+
+#: site-launcher-admin.php:758
+msgid "Users to Convert to Subscribers until Site is Unsuspended"
+msgstr ""
+
+#: site-launcher-admin.php:805
+msgid "Admins Who Have Access to Plugin Settings"
+msgstr ""
+
+#: site-launcher-admin.php:845
+msgid "Save Changes"
+msgstr ""
+
+#: site-launcher.php:459
+msgid "Website is LIVE!"
+msgstr ""
+
+#: site-launcher.php:465
+msgid "Website is coming soon."
+msgstr ""
+
+#: site-launcher.php:469
+msgid "Website has been launched!"
+msgstr ""
+
+#: site-launcher.php:473
+msgid "Website is scheduled for launch on: "
+msgstr ""
+
+#: site-launcher.php:481
+msgid "Website has been suspended!"
+msgstr ""
+
+#: site-launcher.php:486
+msgid "Website is scheduled to be suspended on: "
+msgstr ""
+
+#: site-launcher.php:281
+msgid "Settings"
+msgstr ""
