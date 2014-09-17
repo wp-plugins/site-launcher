@@ -4,7 +4,7 @@ Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
 Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, website suspended, launch timer, time bomb, countdown, disable site, suspend site
 Requires at least: 2.7
 Tested up to: 4.0.0
-Stable tag: 0.7.1
+Stable tag: 0.7.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -45,3 +45,6 @@ YES! Please contact me at saill@wickedcleverlabs.com if you would like to transl
 
 = 0.7.1 =
 * Disabled color picker when it might cause javascript incompatibilitis 
+
+= 0.7.2 =
+* Fixed version number in main php file. Yes, I'm a newb.
