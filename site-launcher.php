@@ -38,7 +38,7 @@ class Site_Launcher
 		$this->installed_folder = basename( dirname(__FILE__) );
 		// add scripts and styles
 		add_action( 'admin_print_styles', array($this, 'load_admin_styles' ) );
-		add_action( 'admin_print_scripts', array($this, 'output_admin_scripts' ), PHP_INT_MAX);
+		//add_action( 'admin_print_scripts', array($this, 'output_admin_scripts' ), PHP_INT_MAX);
 		wp_enqueue_script('scriptaculous');
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_style( 'wp-color-picker' );
