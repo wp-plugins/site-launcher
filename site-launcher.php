@@ -6,7 +6,7 @@
 "site suspended" pages. This plugin is based on the underConstruction plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. If all you need is a "Coming Soon" page, <a 
 href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> is highly recommended.<br />. A complete description along with screenshots and usage instructions is 
 <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
- Version: 0.7.3
+ Version: 0.7.4
  Author: Saill White
  Author URI: http://www.wickedcleverlabs.com/
  Text Domain: site-launcher
@@ -26,8 +26,6 @@ href="https://wordpress.org/plugins/underconstruction/" target="_blank">underCon
  along with Site Launcher.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-?>
-<?php
 class Site_Launcher
 {
 	var $installed_folder = "";
@@ -40,10 +38,11 @@ class Site_Launcher
 		add_action( 'admin_print_styles', array($this, 'load_admin_styles' ) );
 		//add_action( 'admin_print_scripts', array($this, 'output_admin_scripts' ), PHP_INT_MAX);
 		wp_enqueue_script('scriptaculous');
-		wp_enqueue_script( 'wp-color-picker' );
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_register_script( 'site-launcher-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher.dev.js' );
 		wp_enqueue_script( 'site-launcher-js' );
+		// color picker
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'site-launcher-color-picker-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher-color-picker.js', array( 'wp-color-picker' ), false, true );
 		
 		add_action( 'template_redirect', array( $this, 'override_wp' ) );
 
