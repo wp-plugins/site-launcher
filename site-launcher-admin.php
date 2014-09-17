@@ -470,13 +470,13 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 			<tr>
 				<th scope="row" style="width:140px;text-align:right;vertical-align:top;"><?php _e( 'Background Color', 'site-launcher' ) ?>:</th>
 				<td style="padding-left:5px;">
-				<input style="width:70px;" type="text" name="background_color" id="background_color" value="<?php echo $this->get_display_option( 'background_color' ); ?>" data-default-color="<?php echo $this->get_display_option( 'background_color' ); ?>" />
+				<input style="width:70px;" type="text" name="background_color" class="background_color" value="<?php echo $this->get_display_option( 'background_color' ); ?>" data-default-color="#92b7ce" />
 				</td>
 			</tr>
 			<tr valign="top">
 				<th scope="row" style="width:140px;text-align:right;vertical-align:top;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
-				<input style="width:70px;" type="text" name="text_color" id="text_color" value="<?php echo $this->get_display_option( 'text_color' ); ?>" data-default-color="<?php echo $this->get_display_option( 'text_color' ); ?>" />
+				<input style="width:70px;" type="text" name="text_color" class="text_color" value="<?php echo $this->get_display_option( 'text_color' ); ?>" data-default-color="#111111" />
 				</td>
 			</tr>
 			<tr valign="top">
@@ -664,13 +664,13 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 			<tr>
 				<th scope="row" style="width:140px;text-align:right;vertical-align:top;"><?php _e( 'Background Color', 'site-launcher' ) ?>:</th>
 				<td style="padding-left:5px;">
-				<input style="width:70px;" type="text" name="background_color_suspended" id="background_color_suspended" value="<?php echo $this->get_display_option( 'background_color_suspended' ); ?>" data-default-color="<?php echo $this->get_display_option( 'background_color' ); ?>" />
+				<input style="width:70px;" type="text" name="background_color_suspended" class="background_color_suspended" value="<?php echo $this->get_display_option( 'background_color_suspended' ); ?>" data-default-color="#530000" />
 				</td>
 			</tr>
 			<tr valign="top">
 				<th scope="row" style="width:140px;text-align:right;vertical-align:top;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
-				<input style="width:70px;" type="text" name="text_color_suspended" id="text_color_suspended" value="<?php echo $this->get_display_option( 'text_color_suspended' ); ?>" data-default-color="<?php echo $this->get_display_option( 'text_color' ); ?>" />
+				<input style="width:70px;" type="text" name="text_color_suspended" class="text_color_suspended" value="<?php echo $this->get_display_option( 'text_color_suspended' ); ?>" data-default-color="#ffffff" />
 				</td>
 			</tr>
 			<tr valign="top">
