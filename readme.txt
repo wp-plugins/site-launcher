@@ -8,7 +8,7 @@ Stable tag: 0.7.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Set a date to launch or suspend your site automatically. Choose which admins have access to the plugin settings. Generates customizable "coming soon" and "site suspended" pages. 
+Set a date to launch or suspend your site. Generate customizable "coming soon" and "site suspended" pages.
 
 == Description ==
 
