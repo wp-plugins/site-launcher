@@ -12,12 +12,7 @@
  You should have received a copy of the GNU General Public License
  along with Site Launcher.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-if ( $_SERVER['REQUEST_METHOD'] == "POST"){
-	if ( !wp_verify_nonce( $_POST['save_options_field'], 'save_options' ) ){
-		die("Sorry, but this request is invalid");
-	}
-}
+
 
 
 
@@ -384,7 +379,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 						</label><br /> 
 						
 						<label title="Site Suspended Mode">
-						<input type="radio" name="mode" id="mode2" value="site_suspended" <?php if ( $this->get_plugin_mode() == 'site_suspended' || $this->get_plugin_mode() == 'site_scheduled_for_suspension') { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Show "Site Suspended" page or schedule suspension.', 'site-launcher' );?>
+						<input type="radio" name="mode" id="mode2" value="site_suspended" <?php if ( $this->get_plugin_mode() == 'site_suspended' || $this->get_plugin_mode() == 'site_scheduled_for_suspension') { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Show "Site Suspended" page or shedule suspension.', 'site-launcher' );?>
 						</label><br /> 
 
 					</fieldset>
