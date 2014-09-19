@@ -6,7 +6,7 @@
 "site suspended" pages. This plugin is based on the underConstruction plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. If all you need is a "Coming Soon" page, <a 
 href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> is highly recommended.<br />. A complete description along with screenshots and usage instructions is 
 <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
- Version: 0.7.4
+ Version: 0.7.5
  Author: Saill White
  Author URI: http://www.wickedcleverlabs.com/
  Text Domain: site-launcher
@@ -37,16 +37,11 @@ class Site_Launcher
 		// add scripts and styles
 		add_action( 'admin_print_styles', array($this, 'load_admin_styles' ) );
 		add_action( 'admin_print_scripts', array($this, 'output_admin_scripts' )  );
-		wp_enqueue_script('scriptaculous');
-		wp_register_script( 'site-launcher-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher.dev.js' );
-		wp_enqueue_script( 'site-launcher-js' );
-		// color picker
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'site-launcher-color-picker-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher-color-picker.js', array( 'wp-color-picker' ), false, true );
 		
 		add_action( 'template_redirect', array( $this, 'override_wp' ) );
-
 		//add_action( 'plugins_loaded', array($this, 'site_launcher_init_translation' ) );
+		add_action( 'admin_init', array( $this, 'register_admin_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		
 		register_activation_hook(__FILE__, array($this, 'activate'));
@@ -132,6 +127,19 @@ class Site_Launcher
 		require_once ( 'site-launcher-admin.php' );
 	}
 
+	function register_admin_scripts()
+	{
+		wp_register_script( 'site-launcher-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher.dev.js' );
+		wp_register_script( 'site-launcher-color-picker-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher-color-picker.js', array( 'wp-color-picker' ), false, true );
+	}
+	
+	function enqueue_admin_scripts()
+	{
+		wp_enqueue_script('scriptaculous');
+		wp_enqueue_script( 'site-launcher-js' );
+		wp_enqueue_script( 'site-launcher-color-picker-js' );
+	}
+	
 	function admin_menu()
 	{
 		$userID = get_current_user_id();
@@ -143,7 +151,7 @@ class Site_Launcher
 			$page = add_options_page( 'Site Launcher Settings', 'Site Launcher', 'activate_plugins', $this->main_options_page, array($this, 'show_admin' ) );
 
 			/* Using registered $page handle to hook script load */
-			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_scripts' ) );
+			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_admin_scripts' ) );
 		}
 		
 		elseif ( ( is_user_logged_in() && in_array( $userID, $allowed_admins ) ) )
@@ -152,17 +160,8 @@ class Site_Launcher
 			$page = add_options_page( 'Site Launcher Settings', 'Site Launcher', 'activate_plugins', $this->main_options_page, array($this, 'show_admin' ) );
 
 			/* Using registered $page handle to hook script load */
-			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_scripts' ) );
+			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_admin_scripts' ) );
 		}
-	}
-
-	function enqueue_scripts()
-	{
-		/*
-		 * Enqueue our scripts here
-		 */
-	
-		wp_enqueue_script( 'site-launcher-js' );
 		
 	}
 	
