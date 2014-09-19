@@ -6,7 +6,7 @@
 "site suspended" pages. This plugin is based on the underConstruction plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. If all you need is a "Coming Soon" page, <a 
 href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> is highly recommended.<br />. A complete description along with screenshots and usage instructions is 
 <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
- Version: 0.7.4
+ Version: 0.7.5
  Author: Saill White
  Author URI: http://www.wickedcleverlabs.com/
  Text Domain: site-launcher
@@ -36,17 +36,12 @@ class Site_Launcher
 		$this->installed_folder = basename( dirname(__FILE__) );
 		// add scripts and styles
 		add_action( 'admin_print_styles', array($this, 'load_admin_styles' ) );
-		//add_action( 'admin_print_scripts', array($this, 'output_admin_scripts' ), PHP_INT_MAX);
-		wp_enqueue_script('scriptaculous');
-		wp_register_script( 'site-launcher-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher.dev.js' );
-		wp_enqueue_script( 'site-launcher-js' );
-		// color picker
+		add_action( 'admin_print_scripts', array($this, 'output_admin_scripts' )  );
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'site-launcher-color-picker-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher-color-picker.js', array( 'wp-color-picker' ), false, true );
 		
 		add_action( 'template_redirect', array( $this, 'override_wp' ) );
-
 		//add_action( 'plugins_loaded', array($this, 'site_launcher_init_translation' ) );
+		add_action( 'admin_init', array( $this, 'register_admin_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		
 		register_activation_hook(__FILE__, array($this, 'activate'));
@@ -62,202 +57,16 @@ class Site_Launcher
 		$this->__construct();
 	}
 
+
 	function get_main_options_page()
 	{
 		return $this->main_options_page;
 	}
 	
-	function load_admin_styles()
-	{
-		wp_register_style( 'site-launcher-admin', WP_PLUGIN_URL .'/'.$this->installed_folder.'/site-launcher-admin.css' );
-		wp_enqueue_style( 'site-launcher-admin' );
-		
-		$userID = get_current_user_id();
-		$allowed_admins = get_option( 'site_launcher_allowed_admins' );
-		// if plugin has been used and current user is not on the allowed admin list, hide this plugin
-		if ( $allowed_admins !== false )
-		{
-			if ( ! in_array($userID, $allowed_admins ) )
-			{
-				wp_register_style( 'site-launcher-not-auth', WP_PLUGIN_URL .'/'.$this->installed_folder.'/site-launcher-not-auth.css' );
-				wp_enqueue_style( 'site-launcher-not-auth' );
-			}
-		}
-	}
-	
+
 	function output_admin_scripts()
 	{
-		//don't do this if all-in-one-event-calendar is installed, until we figure out why it's incompatible.
-		$plugins = get_plugins();
-		foreach ( $plugins as $plugin )
-		{
-			if ( trim( $plugin['Name'] ) == 'All-in-One Event Calendar by Timely' ) return;
-		}
-		
-		$admin_js = ob_get_contents();
-		ob_end_clean();
-		$skipjs_count= 0;
-	
-		// Use WordPress built-in version of jQuery
-		$jquery_url = includes_url( 'js/jquery/jquery.js' );
-		$admin_js = implode( '', array(
-			"<script type='text/javascript' src='{$jquery_url}'></script>\n",
-			"<script type='text/javascript'>
-			window.onerror = function(msg, url, line){
-				if ( url.match(/\.js$|\.js\?/) ) {
-					if ( window.location.search.length > 0) {
-						if ( window.location.search.indexOf(url) == -1 )
-							window.location.search += '&skipjs[{$skipjs_count}]='+url;
-					}
-					else {
-						window.location.search = '?skipjs[{$skipjs_count}]='+url;
-					}
-				}
-				return true;
-			};</script>\n",
-			$admin_js
-		) );
-		$admin_js .= "
-		<script type=\"text/javascript\">
-		/* <![CDATA[ */
-		(function($){
-			var default_color = '#ccc',
-				header_background_fields,
-				header_text_fields,
-				header_background_suspended_fields,
-				header_text_suspended_fields				
-				;
-
-			function pickBackgroundColor(color) {
-				$( '#name' ).css( 'color', color);
-				$( '#desc' ).css( 'color', color);
-				$( '#background_color' ).val(color);
-			}
-			function pickTextColor(color) {
-				$( '#name' ).css( 'color', color);
-				$( '#desc' ).css( 'color', color);
-				$( '#text_color' ).val(color);
-			}
-			function pickBackgroundColorSuspended(color) {
-				$( '#name' ).css( 'color', color);
-				$( '#desc' ).css( 'color', color);
-				$( '#background_color_suspended' ).val(color);
-			}
-			function pickTextColorSuspended(color) {
-				$( '#name' ).css( 'color', color);
-				$( '#desc' ).css( 'color', color);
-				$( '#text_color_suspended' ).val(color);
-			}
-			function toggle_background() {
-				var checked = $( '#display-header-background' ).prop( 'checked' ),
-					background_color;
-				header_background_fields.toggle( checked );
-				if ( ! checked )
-					return;
-				background_color = $( '#background_color' );
-				if ( '' == background_color.val().replace( '#', '' ) ) {
-					background_color.val( default_color );
-					pickBackgroundColor( default_color );
-				} else {
-					pickBackgroundColor( background_color.val() );
-				}
-			}
-			function toggle_text() {
-				var checked = $( '#display-header-text' ).prop( 'checked' ),
-					text_color;
-				header_text_fields.toggle( checked );
-				if ( ! checked )
-					return;
-				text_color = $( '#text_color' );
-				if ( '' == text_color.val().replace( '#', '' ) ) {
-					text_color.val( default_color );
-					pickTextColor( default_color );
-				} else {
-					pickTextColor( text_color.val() );
-				}
-			}
-			function toggle_background_suspended() {
-				var checked = $( '#display-header-background-suspended' ).prop( 'checked' ),
-					background_color_suspended;
-				header_background_suspended_fields.toggle( checked );
-				if ( ! checked )
-					return;
-				background_color_suspended = $( '#background_color_suspended' );
-				if ( '' == background_color_suspended.val().replace( '#', '' ) ) {
-					background_color_suspended.val( default_color );
-					pickBackgroundColorSuspended( default_color );
-				} else {
-					pickBackgroundColorSuspended( background_color_suspended.val() );
-				}
-			}
-			function toggle_text_suspended() {
-				var checked = $( '#display-header-text-suspended' ).prop( 'checked' ),
-					text_color;
-				header_text_suspended_fields.toggle( checked );
-				if ( ! checked )
-					return;
-				text_color_suspended = $( '#text_color_suspended' );
-				if ( '' == text_color.val().replace( '#', '' ) ) {
-					text_color_suspended.val( default_color );
-					pickTextColorSuspended( default_color );
-				} else {
-					pickTextColorSuspended( text_color_suspended.val() );
-				}
-			}
-			$(document).ready(function() {
-				var background_color = $( '#background_color' );
-				header_background_fields = $( '.displaying-header-background' );
-				background_color.wpColorPicker({
-					change: function( event, ui ) {
-						pickBackgroundColor( background_color.wpColorPicker( 'color' ) );
-					},
-					clear: function() {
-						pickBackgroundColor( '' );
-					}
-				});
-				$( '#display-header-background' ).click( toggle_background );
-				
-				var text_color = $( '#text_color' );
-				header_text_fields = $( '.displaying-header-text' );
-				text_color.wpColorPicker({
-					change: function( event, ui ) {
-						pickTextColor( text_color.wpColorPicker( 'color' ) );
-					},
-					clear: function() {
-						pickTextColor( '' );
-					}
-				});				
-				$( '#display-header-text' ).click( toggle_text );
-
-				var background_color_suspended = $( '#background_color_suspended' );
-				header_background_suspended_fields = $( '.displaying-header-background-suspended' );
-				background_color_suspended.wpColorPicker({
-					change: function( event, ui ) {
-						pickBackgroundColorSuspended( background_color_suspended.wpColorPicker( 'color' ) );
-					},
-					clear: function() {
-						pickBackgroundColorSuspended( '' );
-					}
-				});
-				$( '#display-header-background-suspended' ).click( toggle_background_suspended );
-				
-				var text_color_suspended = $( '#text_color_suspended' );
-				header_text_suspended_fields = $( '.displaying-header-text-suspended' );
-				text_color_suspended.wpColorPicker({
-					change: function( event, ui ) {
-						pickTextColorSuspended( text_color_suspended.wpColorPicker( 'color' ) );
-					},
-					clear: function() {
-						pickTextColorSuspended( '' );
-					}
-				});
-				$( '#display-header-text-suspended' ).click( toggle_text_suspended );
-					});
-
-		})(jQuery);
-		/* ]]> */
-		</script>";
-		$admin_js .= "
+		$admin_js = "
 		<script type=\"text/javascript\">
 			WebFontConfig = {
 			google: { families: [ 'Special+Elite::latin', 'Playfair+Display::latin', 'Griffy::latin', 'Indie+Flower::latin', 'Open+Sans::latin',  'Poiret+One::latin', 'Philosopher::latin', 'Orbitron::latin', 'Patua+One::latin', 'Limelight::latin'] }
@@ -275,6 +84,26 @@ class Site_Launcher
 		echo $admin_js;
 
 	}
+
+
+	function load_admin_styles()
+	{
+		wp_register_style( 'site-launcher-admin', WP_PLUGIN_URL .'/'.$this->installed_folder.'/site-launcher-admin.css' );
+		wp_enqueue_style( 'site-launcher-admin' );
+		
+		$userID = get_current_user_id();
+		$allowed_admins = get_option( 'site_launcher_allowed_admins' );
+		// if plugin has been used and current user is not on the allowed admin list, hide this plugin
+		if ( $allowed_admins !== false )
+		{
+			if ( ! in_array($userID, $allowed_admins ) )
+			{
+				wp_register_style( 'site-launcher-not-auth', WP_PLUGIN_URL .'/'.$this->installed_folder.'/site-launcher-not-auth.css' );
+				wp_enqueue_style( 'site-launcher-not-auth' );
+			}
+		}
+	}
+
 	
 	function init_translation()
 	{
@@ -298,6 +127,19 @@ class Site_Launcher
 		require_once ( 'site-launcher-admin.php' );
 	}
 
+	function register_admin_scripts()
+	{
+		wp_register_script( 'site-launcher-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher.dev.js' );
+		wp_register_script( 'site-launcher-color-picker-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher-color-picker.js', array( 'wp-color-picker' ), false, true );
+	}
+	
+	function enqueue_admin_scripts()
+	{
+		wp_enqueue_script('scriptaculous');
+		wp_enqueue_script( 'site-launcher-js' );
+		wp_enqueue_script( 'site-launcher-color-picker-js' );
+	}
+	
 	function admin_menu()
 	{
 		$userID = get_current_user_id();
@@ -309,7 +151,7 @@ class Site_Launcher
 			$page = add_options_page( 'Site Launcher Settings', 'Site Launcher', 'activate_plugins', $this->main_options_page, array($this, 'show_admin' ) );
 
 			/* Using registered $page handle to hook script load */
-			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_scripts' ) );
+			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_admin_scripts' ) );
 		}
 		
 		elseif ( ( is_user_logged_in() && in_array( $userID, $allowed_admins ) ) )
@@ -318,17 +160,8 @@ class Site_Launcher
 			$page = add_options_page( 'Site Launcher Settings', 'Site Launcher', 'activate_plugins', $this->main_options_page, array($this, 'show_admin' ) );
 
 			/* Using registered $page handle to hook script load */
-			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_scripts' ) );
+			add_action( 'admin_print_scripts-'.$page, array($this, 'enqueue_admin_scripts' ) );
 		}
-	}
-
-	function enqueue_scripts()
-	{
-		/*
-		 * Enqueue our scripts here
-		 */
-	
-		wp_enqueue_script( 'site-launcher-js' );
 		
 	}
 	
