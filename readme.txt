@@ -8,7 +8,7 @@ Stable tag: 0.8.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Set a date to launch or suspend your site. Generate customizable "coming soon" and "site suspended" pages, or redirect to a different url.
+Set a date to launch or suspend your site with custom "coming soon" and "site suspended" pages or with a redirect.
 
 == Description ==
 
