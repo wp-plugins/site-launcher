@@ -1,7 +1,7 @@
 === Site Launcher ===
 Contributors: saill
 Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
-Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, website suspended, launch timer, time bomb, countdown, disable site, suspend site, redirect, redirect url, forward domain
+Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
 Requires at least: 2.7
 Tested up to: 4.0.0
 Stable tag: 0.8.0
