@@ -23,10 +23,14 @@
 
 $fonts = array(
 	'sans'			=>	'"Open Sans", sans-serif',
-	'poiret'		=>	'"Poiret One", cursive',
-	'orbitron'		=>	'"Orbitron", sans-serif',
+	'ubuntu'		=>	'"Ubuntu", sans-serif',
+	'raleway'		=>	'"Raleway", sans-serif',
+	'roboto'		=>	'"Roboto", sans-serif',
+	'robotoslab'		=>	'"Roboto Slab", serif',
 	'philosopher'		=>	'"Philosopher", sans-serif',
 	'playfair'		=>	'"Playfair Display", serif',
+	'poiret'		=>	'"Poiret One", cursive',
+	'orbitron'		=>	'"Orbitron", sans-serif',
 	'patua'			=>	'"Patua One", cursive',
 	'limelight'		=>	'"Limelight", cursive',
 	'elite'			=>	'"Special Elite", cursive',
@@ -34,6 +38,36 @@ $fonts = array(
 	'griffy'		=>	'"Griffy", cursive'
 );
 
+// "=====================================================
+// 		process action and redirect url
+// "=====================================================
+// get $_POST data
+
+if ( isset( $_POST[ 'action' ] ) )
+{
+	update_option( 'site_launcher_action',  $_POST[ 'action' ]);
+}
+
+if ( isset( $_POST[ 'redirect_url' ] ) )
+{
+	$url = $_POST[ 'redirect_url' ];
+	if (strpos( $_POST[ 'redirect_url' ], 'http' ) !== 0 ) $url = 'http://'.$_POST[ 'redirect_url' ];
+	$url = filter_var( $url, FILTER_VALIDATE_URL );
+	update_option( 'site_launcher_redirect_url', $url );
+}
+
+if ( isset( $_POST[ 'action_suspended' ] ) )
+{
+	update_option( 'site_launcher_action_suspended',  $_POST[ 'action_suspended' ]);
+}
+
+if ( isset( $_POST[ 'redirect_url_suspended' ] ) )
+{
+	$url = $_POST[ 'redirect_url_suspended' ];
+	if (strpos( $_POST[ 'redirect_url_suspended' ], 'http' ) !== 0 ) $url = 'http://'.$_POST[ 'redirect_url_suspended' ];
+	$url = filter_var( $url, FILTER_VALIDATE_URL );
+	update_option( 'site_launcher_redirect_url_suspended', $url );
+}
 
 
 // "=====================================================
@@ -307,7 +341,7 @@ else
 if ( $mode !== 'coming_soon' ) update_option( 'site_launcher_launch_date', 'now' );
 if ( $mode !== 'site_suspended'  && $mode != 'site_scheduled_for_suspension' ) update_option( 'site_launcher_suspend_date', 'never' );
 
-
+if ( get_option( 'site_launcher_users_have_been_demoted' ) === false ) update_option( 'site_launcher_users_have_been_demoted', 'no' );
 if ( $mode == 'live' )
 {
 
@@ -363,7 +397,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 							<span><?php _e( 'Select Mode', 'site-launcher' );?></span>
 						</legend>
 						 <label title="Launch Website" style="font-weight:bold;font-size:16px;" >
-						 <input type="radio" name="mode" id="mode0" value="live" <?php if ( $this->get_plugin_mode() == 'live' ) echo ' checked="checked"';  ?>>
+						 <input type="radio" name="mode" id="mode0" value="live" <?php if ( $this->get_plugin_mode() == 'live' ) echo ' checked="checked"';  ?> >
 							<?php if ( $this->get_plugin_mode() == 'live' ) {
 								_e( 'Website is Live', 'site-launcher' );
 							} elseif ( $this->get_plugin_mode() == 'coming_soon' ) {
@@ -375,18 +409,18 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 						</label><br />
 						
 						<label title="Coming Soon Mode">
-						<input type="radio" name="mode" id="mode1" value="coming_soon" <?php if ( $this->get_plugin_mode() == 'coming_soon' ) { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Show "Coming Soon" page and/or schedule launch.', 'site-launcher' );?>
+						<input type="radio" name="mode" id="mode1" value="coming_soon" <?php if ( $this->get_plugin_mode() == 'coming_soon' ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( '"Coming Soon" mode.', 'site-launcher' );?>
 						</label><br /> 
 						
 						<label title="Site Suspended Mode">
-						<input type="radio" name="mode" id="mode2" value="site_suspended" <?php if ( $this->get_plugin_mode() == 'site_suspended' || $this->get_plugin_mode() == 'site_scheduled_for_suspension') { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Show "Site Suspended" page or shedule suspension.', 'site-launcher' );?>
+						<input type="radio" name="mode" id="mode2" value="site_suspended" <?php if ( $this->get_plugin_mode() == 'site_suspended' || $this->get_plugin_mode() == 'site_scheduled_for_suspension') { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( '"Site Suspended" mode.', 'site-launcher' );?>
 						</label><br /> 
 
 					</fieldset>
 				</td>
 			</tr>
 		</table>
-		<div id="coming-soon-mode" class="site-launcher-box" <?php if ( ! ( $this->get_plugin_mode() == 'coming_soon' ) ) { echo ' style="display:none;"'; } ?>>
+		<div id="coming-soon-mode" class="site-launcher-box" <?php if ( ! ( $this->get_plugin_mode() == 'coming_soon' ) ) { echo ' style="display:none;"'; } ?> >
 		<table>
 			<tr>
 				<td colspan="2">
@@ -397,24 +431,23 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 		<table class="admin-table divider">
 			<tr>
 				<td colspan="2">
-				      <h3><?php _e( 'Automatic Launch', 'site-launcher' );?></h3>
+				      <h3><?php _e( 'Launch Mode', 'site-launcher' );?></h3>
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:100px;text-align:right;"><label for="site_launch"> <?php _e( 'Launch site:', 'site-launcher' );?> </label></th>
 				<td>
 					<fieldset>
 						<legend class="screen-reader-text">
 							<span><?php _e( 'Login Form', 'site-launcher' );?></span>
 						</legend>
 						<label title="No launch date">
-						  <input type="radio" name="launch_date" id="hidelaunchdate"  value="never" <?php if ( $this->get_site_launch_date() == 'never' || $this->get_site_launch_date() == 'now') echo ' checked="checked"';  ?>>&nbsp;<?php _e( 'When I select the "Launch Website" option', 'site-launcher' );?>
+						  <input type="radio" name="launch_date" id="hidelaunchdate"  value="never" <?php if ( $this->get_site_launch_date() == 'never' || $this->get_site_launch_date() == 'now') echo ' checked="checked"';  ?> >&nbsp;<?php _e( 'Launch when I select the "Launch Website" option', 'site-launcher' );?>
 						</label><br /> 
 						<label title="Set launch date">
-						  <input type="radio" name="launch_date" id="showlaunchdate" value="automatic"<?php if ( is_numeric ( $this->get_site_launch_date() ) ) { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'On a set date and time:', 'site-launcher' );?>
+						  <input type="radio" name="launch_date" id="showlaunchdate" value="automatic"<?php if ( is_numeric ( $this->get_site_launch_date() ) ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Launch on this date and time:', 'site-launcher' );?>
 						</label>
 					</fieldset>
-				  <div id="timestampdiv" class="" <?php if ( $this->get_site_launch_date() == 'never' || $this->get_site_launch_date() == 'now') echo ' style="display:none;"'; ?>><div class="timestamp-wrap">
+				  <div id="timestampdiv" class="" <?php if ( $this->get_site_launch_date() == 'never' || $this->get_site_launch_date() == 'now') echo ' style="display:none;"'; ?> ><div class="timestamp-wrap">
 				  <?php 
 					$launch_month = date('m', $show_launch_julian );
 					$launch_day = date('d', $show_launch_julian );
@@ -429,33 +462,74 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 					}
 				  ?>
 				  <select id="mm" name="mm">
-					<option value="01" <?php if ( $launch_month == '01' ) echo 'selected="selected"';?>>01-Jan</option>
-					<option value="02" <?php if ( $launch_month == '02' ) echo 'selected="selected"';?>>02-Feb</option>
-					<option value="03" <?php if ( $launch_month == '03' ) echo 'selected="selected"';?>>03-Mar</option>
-					<option value="04" <?php if ( $launch_month == '04' ) echo 'selected="selected"';?>>04-Apr</option>
-					<option value="05" <?php if ( $launch_month == '05' ) echo 'selected="selected"';?>>05-May</option>
-					<option value="06" <?php if ( $launch_month == '06' ) echo 'selected="selected"';?>>06-Jun</option>
-					<option value="07" <?php if ( $launch_month == '07' ) echo 'selected="selected"';?>>07-Jul</option>
-					<option value="08" <?php if ( $launch_month == '08' ) echo 'selected="selected"';?>>08-Aug</option>
-					<option value="09" <?php if ( $launch_month == '09' ) echo 'selected="selected"';?>>09-Sep</option>
-					<option value="10" <?php if ( $launch_month == '10' ) echo 'selected="selected"';?>>10-Oct</option>
-					<option value="11" <?php if ( $launch_month == '11' ) echo 'selected="selected"';?>>11-Nov</option>
-					<option value="12" <?php if ( $launch_month == '12' ) echo 'selected="selected"';?>>12-Dec</option>
+					<option value="01" <?php if ( $launch_month == '01' ) echo 'selected="selected"';?> >01-Jan</option>
+					<option value="02" <?php if ( $launch_month == '02' ) echo 'selected="selected"';?> >02-Feb</option>
+					<option value="03" <?php if ( $launch_month == '03' ) echo 'selected="selected"';?> >03-Mar</option>
+					<option value="04" <?php if ( $launch_month == '04' ) echo 'selected="selected"';?> >04-Apr</option>
+					<option value="05" <?php if ( $launch_month == '05' ) echo 'selected="selected"';?> >05-May</option>
+					<option value="06" <?php if ( $launch_month == '06' ) echo 'selected="selected"';?> >06-Jun</option>
+					<option value="07" <?php if ( $launch_month == '07' ) echo 'selected="selected"';?> >07-Jul</option>
+					<option value="08" <?php if ( $launch_month == '08' ) echo 'selected="selected"';?> >08-Aug</option>
+					<option value="09" <?php if ( $launch_month == '09' ) echo 'selected="selected"';?> >09-Sep</option>
+					<option value="10" <?php if ( $launch_month == '10' ) echo 'selected="selected"';?> >10-Oct</option>
+					<option value="11" <?php if ( $launch_month == '11' ) echo 'selected="selected"';?> >11-Nov</option>
+					<option value="12" <?php if ( $launch_month == '12' ) echo 'selected="selected"';?> >12-Dec</option>
 				  </select>
 				  <input id="jj" name="jj" value="<?php echo $launch_day; ?>" size="2" maxlength="2" autocomplete="off" type="text">, <input id="aa" name="aa" value="<?php echo $launch_year; ?>" size="4" maxlength="4" autocomplete="off" type="text"> @ <input id="hh" name="hh" value="<?php echo $launch_hour; ?>" size="2" maxlength="2" autocomplete="off" type="text"> : <input id="mn" name="mn" value="<?php echo $launch_minute; ?>" size="2" maxlength="2" autocomplete="off" type="text">
 				  <select id="ampm" name="ampm">
-					<option value="am" <?php if ( $launch_ampm == 'am' ) echo 'selected="selected"';?>>am</option>
-					<option value="pm" <?php if ( $launch_ampm == 'pm' ) echo 'selected="selected"';?>>pm</option>
+					<option value="am" <?php if ( $launch_ampm == 'am' ) echo 'selected="selected"';?> >am</option>
+					<option value="pm" <?php if ( $launch_ampm == 'pm' ) echo 'selected="selected"';?> >pm</option>
 				  </select><br />
 				  <?php _e( 'Make sure your timezone is set correctly in Settings->General', 'site-launcher' );?>
 				  </div></div>
 				</td>
 			</tr>
 		</table>
-		<table class="admin-table">
+		<table class="admin-table divider">
+		
 			<tr>
 				<td colspan="2">
-				      <h3><?php _e( 'Customize Display', 'site-launcher' );?></h3>
+				      <h3><?php _e( 'Action', 'site-launcher' );?></h3>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<fieldset>
+						<legend class="screen-reader-text">
+							<span><?php _e( 'Select Action', 'site-launcher' );?></span>
+						</legend>
+						
+						<label title="Redirect to a different URL">
+						<input type="radio" name="action" id="redirect" value="redirect" <?php if ( get_option( 'site_launcher_action' ) == 'redirect' ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Redirect to a different URL.', 'site-launcher' );?>
+						</label><br /> 
+						<?php //echo get_option( 'site_launcher_action' ); ?>
+						<label title="Show Coming Soon page">
+						<input type="radio" name="action" id="showpage" value="show_page" <?php if ( get_option( 'site_launcher_action' ) == 'show_page' || get_option( 'site_launcher_action' ) === false ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Show "Coming Soon" page.', 'site-launcher' );?>
+						</label><br /> 
+
+					</fieldset>
+				</td>
+			</tr>
+		</table>
+		
+		<table class="admin-table" id="setredirect" <?php if ( get_option( 'site_launcher_action' ) == 'show_page' || get_option( 'site_launcher_action' ) === false ) echo 'style="display:none;"'; ?> >
+			<tr valign="top">
+				<th scope="row" style="width:140px;text-align:right;vertical-align:top;"><?php _e( 'URL to redirect to:', 'site-launcher' );?></th>
+				<td style="padding-left:5px;">
+				<?php if ( ! get_option( 'site_launcher_redirect_url' ) &&  get_option( 'site_launcher_action' ) == 'redirect' ) echo '<span style="color:#bf0000;">Please enter a valid URL.</span><br />';
+				$url = get_option( 'site_launcher_redirect_url' );
+				if ( ! is_string( $url ) ) $url = '';
+				?>
+				<input style="width:320px;" type="text" name="redirect_url" id="redirect_url" value="<?php echo $url; ?>" />
+				</td>
+			</tr>
+		</table>
+		
+		<table class="admin-table divider" id="comingsoonpage" <?php if ( get_option( 'site_launcher_action' ) == 'redirect' ) echo 'style="display:none;"'; ?> >
+		
+			<tr>
+				<td colspan="2">
+				      <h3><?php _e( 'Coming Soon Page Settings', 'site-launcher' );?></h3>
 				</td>
 			</tr>
 
@@ -491,7 +565,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 									$fontbits = explode ( '"', $font_name );
 									$font_nicename = $fontbits[1];
 									?>
-									<option value="<?php echo $font_nickname; ?>" <?php if ( $this->get_display_option( 'font' ) == $font_name ) echo ' selected="selected"'; ?>><?php echo $font_nicename; ?></option>
+									<option value="<?php echo $font_nickname; ?>" <?php if ( $this->get_display_option( 'font' ) == $font_name ) echo ' selected="selected"'; ?> ><?php echo $font_nicename; ?></option>
 								<?php } ?>
 								</select>
 							</td>
@@ -536,10 +610,10 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 						<span><?php _e( 'Login Form', 'site-launcher' );?></span>
 						</legend><?php //echo 'Show login: '.$this->get_display_option( 'show_login' ).'<br />';?>
 						<label title="Show log-in">
-						  <input type="radio" name="show_login" id="showlogin" value="1"<?php if ( $this->get_display_option( 'show_login' ) ) { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Show', 'site-launcher' );?>
+						  <input type="radio" name="show_login" id="showlogin" value="1"<?php if ( $this->get_display_option( 'show_login' ) ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Show', 'site-launcher' );?>
 						</label><br /> 
 						<label title="Hide log-in">
-						  <input type="radio" name="show_login" id="hidelogin" value="0"<?php if ( ! $this->get_display_option( 'show_login' ) ) { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Hide', 'site-launcher' );?>
+						  <input type="radio" name="show_login" id="hidelogin" value="0"<?php if ( ! $this->get_display_option( 'show_login' ) ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Hide', 'site-launcher' );?>
 						</label>
 					</fieldset>
 				</td>
@@ -580,7 +654,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 			</tr>
 		</table>
 		</div>
-		<div id="site-suspended-mode" class="site-launcher-box" <?php if ( ! ( $this->get_plugin_mode() == 'site_suspended'  || $this->get_plugin_mode() == 'site_scheduled_for_suspension' ) ) { echo ' style="display:none;"'; } ?>>
+		<div id="site-suspended-mode" class="site-launcher-box" <?php if ( ! ( $this->get_plugin_mode() == 'site_suspended'  || $this->get_plugin_mode() == 'site_scheduled_for_suspension' ) ) { echo ' style="display:none;"'; } ?> >
 		<table>
 			<tr>
 				<td colspan="2">
@@ -591,24 +665,23 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 		<table class="admin-table divider">
 			<tr>
 				<td colspan="2">
-				      <h3><?php _e( 'Automatic Suspend', 'site-launcher' );?></h3>
+				      <h3><?php _e( 'Suspend Mode', 'site-launcher' );?></h3>
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:100px;text-align:right;"><label for="site_suspend"> <?php _e( 'Suspend site:', 'site-launcher' );?> </label></th>
 				<td>
 					<fieldset>
 						<legend class="screen-reader-text">
 							<span><?php _e( 'Login Form', 'site-launcher' );?></span>
 						</legend>
 						<label title="No suspend date">
-						  <input type="radio" name="suspend_date" id="hidesuspenddate"  value="now"<?php if ( ! is_numeric( $this->get_site_suspend_date() ) ) { echo ' checked="checked"'; } ?>>&nbsp;<span style="color:#bf0000;"><?php _e( 'Now', 'site-launcher' );?></span>
+						  <input type="radio" name="suspend_date" id="hidesuspenddate"  value="now"<?php if ( ! is_numeric( $this->get_site_suspend_date() ) ) { echo ' checked="checked"'; } ?> >&nbsp;<span style="color:#bf0000;"><?php _e( 'Suspend site NOW!', 'site-launcher' );?></span>
 						</label><br /> 
 						<label title="Set suspend date">
-						  <input type="radio" name="suspend_date" id="showsuspenddate" value="automatic"<?php if ( is_numeric( $this->get_site_suspend_date() ) ) { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'On this date and time:', 'site-launcher' );?>
+						  <input type="radio" name="suspend_date" id="showsuspenddate" value="automatic"<?php if ( is_numeric( $this->get_site_suspend_date() ) ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Suspend on this date and time:', 'site-launcher' );?>
 						</label>
 					</fieldset>
-				  <div id="timestampdivsuspended" class="" <?php if ( $this->get_site_suspend_date() == 'never' || $this->get_site_suspend_date() == 'now') echo ' style="display:none;"'; ?>><div class="timestamp-wrap-suspended">
+				  <div id="timestampdivsuspended" class="" <?php if ( $this->get_site_suspend_date() == 'never' || $this->get_site_suspend_date() == 'now') echo ' style="display:none;"'; ?> ><div class="timestamp-wrap-suspended">
 				  <?php 
 					$suspend_month = date('m', $show_suspend_julian );
 					$suspend_day = date('d', $show_suspend_julian );
@@ -623,33 +696,75 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 					}
 				  ?>
 				  <select id="mm_s" name="mm_s">
-					<option value="01" <?php if ( $suspend_month == '01' ) echo 'selected="selected"';?>>01-Jan</option>
-					<option value="02" <?php if ( $suspend_month == '02' ) echo 'selected="selected"';?>>02-Feb</option>
-					<option value="03" <?php if ( $suspend_month == '03' ) echo 'selected="selected"';?>>03-Mar</option>
-					<option value="04" <?php if ( $suspend_month == '04' ) echo 'selected="selected"';?>>04-Apr</option>
-					<option value="05" <?php if ( $suspend_month == '05' ) echo 'selected="selected"';?>>05-May</option>
-					<option value="06" <?php if ( $suspend_month == '06' ) echo 'selected="selected"';?>>06-Jun</option>
-					<option value="07" <?php if ( $suspend_month == '07' ) echo 'selected="selected"';?>>07-Jul</option>
-					<option value="08" <?php if ( $suspend_month == '08' ) echo 'selected="selected"';?>>08-Aug</option>
-					<option value="09" <?php if ( $suspend_month == '09' ) echo 'selected="selected"';?>>09-Sep</option>
-					<option value="10" <?php if ( $suspend_month == '10' ) echo 'selected="selected"';?>>10-Oct</option>
-					<option value="11" <?php if ( $suspend_month == '11' ) echo 'selected="selected"';?>>11-Nov</option>
-					<option value="12" <?php if ( $suspend_month == '12' ) echo 'selected="selected"';?>>12-Dec</option>
+					<option value="01" <?php if ( $suspend_month == '01' ) echo 'selected="selected"';?> >01-Jan</option>
+					<option value="02" <?php if ( $suspend_month == '02' ) echo 'selected="selected"';?> >02-Feb</option>
+					<option value="03" <?php if ( $suspend_month == '03' ) echo 'selected="selected"';?> >03-Mar</option>
+					<option value="04" <?php if ( $suspend_month == '04' ) echo 'selected="selected"';?> >04-Apr</option>
+					<option value="05" <?php if ( $suspend_month == '05' ) echo 'selected="selected"';?> >05-May</option>
+					<option value="06" <?php if ( $suspend_month == '06' ) echo 'selected="selected"';?> >06-Jun</option>
+					<option value="07" <?php if ( $suspend_month == '07' ) echo 'selected="selected"';?> >07-Jul</option>
+					<option value="08" <?php if ( $suspend_month == '08' ) echo 'selected="selected"';?> >08-Aug</option>
+					<option value="09" <?php if ( $suspend_month == '09' ) echo 'selected="selected"';?> >09-Sep</option>
+					<option value="10" <?php if ( $suspend_month == '10' ) echo 'selected="selected"';?> >10-Oct</option>
+					<option value="11" <?php if ( $suspend_month == '11' ) echo 'selected="selected"';?> >11-Nov</option>
+					<option value="12" <?php if ( $suspend_month == '12' ) echo 'selected="selected"';?> >12-Dec</option>
 				  </select>
 				  <input id="jj_s" name="jj_s" value="<?php echo $suspend_day; ?>" size="2" maxlength="2" autocomplete="off" type="text">, <input id="aa_s" name="aa_s" value="<?php echo $suspend_year; ?>" size="4" maxlength="4" autocomplete="off" type="text"> @ <input id="hh_s" name="hh_s" value="<?php echo $suspend_hour; ?>" size="2" maxlength="2" autocomplete="off" type="text"> : <input id="mn_s" name="mn_s" value="<?php echo $suspend_minute; ?>" size="2" maxlength="2" autocomplete="off" type="text">
 				  <select id="ampm_s" name="ampm_s">
-					<option value="am" <?php if ( $suspend_ampm == 'am' ) echo 'selected="selected"';?>>am</option>
-					<option value="pm" <?php if ( $suspend_ampm == 'pm' ) echo 'selected="selected"';?>>pm</option>
+					<option value="am" <?php if ( $suspend_ampm == 'am' ) echo 'selected="selected"';?> >am</option>
+					<option value="pm" <?php if ( $suspend_ampm == 'pm' ) echo 'selected="selected"';?> >pm</option>
 				  </select><br />
 				  <?php _e( 'Make sure your timezone is set correctly in Settings->General', 'site-launcher' );?>
 				  </div></div>
 				</td>
 			</tr>
 		</table>
-		<table class="admin-table">
+		
+		
+		<table class="admin-table divider">
+		
 			<tr>
 				<td colspan="2">
-				      <h3><?php _e( 'Customize Display', 'site-launcher' );?></h3>
+				      <h3><?php _e( 'Action', 'site-launcher' );?></h3>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<fieldset>
+						<legend class="screen-reader-text">
+							<span><?php _e( 'Select Action', 'site-launcher' );?></span>
+						</legend>
+						
+						<label title="Redirect to a different URL">
+						<input type="radio" name="action_suspended" id="redirectsuspended" value="redirect" <?php if ( get_option( 'site_launcher_action_suspended' ) == 'redirect' ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Redirect to a different URL.', 'site-launcher' );?>
+						</label><br /> 
+						
+						<label title="Show Site Suspended Page">
+						<input type="radio" name="action_suspended" id="showpagesuspended" value="show_page" <?php if ( get_option( 'site_launcher_action_suspended' ) == 'show_page' || get_option( 'site_launcher_action_suspended' ) === false ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Show "Site Suspended" page.', 'site-launcher' );?>
+						</label><br /> 
+
+					</fieldset>
+				</td>
+			</tr>
+		</table>
+		
+		<table class="admin-table" id="setredirectsuspended" <?php if ( get_option( 'site_launcher_action_suspended' ) == 'show_page' || get_option( 'site_launcher_action_suspended' ) === false ) echo 'style="display:none;"'; ?> >
+			<tr valign="top">
+				<th scope="row" style="width:140px;text-align:right;vertical-align:top;"><?php _e( 'URL to redirect to:', 'site-launcher' );?></th>
+				<td style="padding-left:5px;">
+				<?php if ( ! get_option( 'site_launcher_redirect_url_suspended' ) &&  get_option( 'site_launcher_action_suspended' ) == 'redirect' ) echo '<span style="color:#bf0000;">Please enter a valid URL.</span><br />';
+				$url = get_option( 'site_launcher_redirect_url_suspended' );
+				if ( ! is_string( $url ) ) $url = '';
+				?>
+				<input style="width:320px;" type="text" name="redirect_url_suspended" id="redirect_url_suspended" value="<?php echo $url; ?>" />
+				</td>
+			</tr>
+		</table>
+			
+		<table class="admin-table divider" id="suspendedpage" <?php if ( get_option( 'site_launcher_action_suspended' ) == 'redirect' ) echo 'style="display:none;"'; ?> >
+			<tr>
+				<td colspan="2">
+				      <h3><?php _e( 'Show Custom Site Suspended Page', 'site-launcher' );?></h3>
 				</td>
 			</tr>
 
@@ -685,7 +800,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 									$fontbits = explode ( '"', $font_name );
 									$font_nicename = $fontbits[1];
 									?>
-									<option value="<?php echo $font_nickname; ?>" <?php if ( $this->get_display_option( 'font_suspended' ) == $font_name ) echo ' selected="selected"'; ?>><?php echo $font_nicename; ?></option>
+									<option value="<?php echo $font_nickname; ?>" <?php if ( $this->get_display_option( 'font_suspended' ) == $font_name ) echo ' selected="selected"'; ?> ><?php echo $font_nicename; ?></option>
 								<?php } ?>
 								</select>
 							</td>
@@ -730,15 +845,15 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 							<span><?php _e( 'Login Form', 'site-launcher' );?></span>
 						</legend>
 						<label title="Show log-in">
-						  <input type="radio" name="show_login_suspended" id="showloginsuspended" value="1"<?php if ( $this->get_display_option( 'show_login_suspended' ) ) { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Show', 'site-launcher' );?>
+						  <input type="radio" name="show_login_suspended" id="showloginsuspended" value="1"<?php if ( $this->get_display_option( 'show_login_suspended' ) ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Show', 'site-launcher' );?>
 						</label><br /> 
 						<label title="Hide log-in">
-						  <input type="radio" name="show_login_suspended" id="hideloginsuspended" value="0"<?php if ( ! $this->get_display_option( 'show_login_suspended' ) ) { echo ' checked="checked"'; } ?>>&nbsp;<?php _e( 'Hide', 'site-launcher' );?>
+						  <input type="radio" name="show_login_suspended" id="hideloginsuspended" value="0"<?php if ( ! $this->get_display_option( 'show_login_suspended' ) ) { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Hide', 'site-launcher' );?>
 						</label>
 					</fieldset>
 				</td>
 			</tr>
-			<tr valign="top" id="loginmessageinputsuspended" <?php if ( ! $this->get_display_option( 'show_login_suspended' )) echo ' style="display:none;"'; ?>>
+			<tr valign="top" id="loginmessageinputsuspended" <?php if ( ! $this->get_display_option( 'show_login_suspended' )) echo ' style="display:none;"'; ?> >
 				<th scope="row" style="width:140px;text-align:right;vertical-align:top;"><?php _e( 'Log-in Message:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<input style="" type="text" name="login_message_suspended" id="login_message_suspended" value="<?php echo $this->get_display_option( 'login_message_suspended' ); ?>" />

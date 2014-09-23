@@ -48,7 +48,7 @@ function display_site_down_page( $options, $status )
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href='http://fonts.googleapis.com/css?family=Special+Elite|Playfair+Display|Griffy|Indie+Flower|Open+Sans|Poiret+One|Philosopher|Orbitron|Patua+One|Limelight' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Special+Elite|Playfair+Display|Griffy|Indie+Flower|Open+Sans|Poiret+One|Philosopher|Orbitron|Patua+One|Limelight|Ubuntu|Roboto|Raleway|Roboto+Slab' rel='stylesheet' type='text/css'>
         <title>
            <?php bloginfo( 'name' ); ?>
         </title>
