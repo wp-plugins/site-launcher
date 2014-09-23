@@ -24,7 +24,10 @@ document.observe( "dom:loaded", function()
 	Event.observe( 'showlogin', 'click', showLoginMessageInput );
 	Event.observe( 'hidelogin', 'click', hideLoginMessageInput );
 	Event.observe( 'showloginsuspended', 'click', showLoginMessageInputSuspended );
-	Event.observe( 'hideloginsuspended', 'click', hideLoginMessageInputSuspended );
+	Event.observe( 'redirect', 'click', showRedirect );
+	Event.observe( 'showpage', 'click', showPage );
+	Event.observe( 'redirectsuspended', 'click', showRedirectSuspended );
+	Event.observe( 'showpagesuspended', 'click', showPageSuspended );
 });
 
 function alertMe()
@@ -88,6 +91,30 @@ function showLaunchDateInputSuspended()
 function hideLaunchDateInputSuspended()
 {
 	document.getElementById( 'timestampdivsuspended' ).style.display = 'none';
+}
+
+function showRedirect()
+{
+	document.getElementById( 'setredirect' ).style.display = 'table';
+	document.getElementById( 'comingsoonpage' ).style.display = 'none';	
+}
+
+function showPage()
+{
+	document.getElementById( 'setredirect' ).style.display = 'none';
+	document.getElementById( 'comingsoonpage' ).style.display = 'table';	
+}
+
+function showRedirectSuspended()
+{
+	document.getElementById( 'setredirectsuspended' ).style.display = 'table';
+	document.getElementById( 'suspendedpage' ).style.display = 'none';	
+}
+
+function showPageSuspended()
+{
+	document.getElementById( 'setredirectsuspended' ).style.display = 'none';
+	document.getElementById( 'suspendedpage' ).style.display = 'table';	
 }
 
 

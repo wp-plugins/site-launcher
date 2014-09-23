@@ -2,8 +2,8 @@
 /*
  Plugin Name: Site Launcher
  Plugin URI: http://www.wickedcleverlabs.com/site-launcher
- Description: Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates nicely customizable Coming Soon and Site Suspended pages. This plugin is based on the underConstruction plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. If all you need is a Coming Soon page, <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> is highly recommended. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
- Version: 0.7.5
+ Description: Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates nicely customizable Coming Soon and Site Suspended pages, or allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
+ Version: 0.8.0
  Author: Saill White
  Author URI: http://www.wickedcleverlabs.com/
  Text Domain: site-launcher
@@ -66,7 +66,7 @@ class Site_Launcher
 		$admin_js = "
 		<script type=\"text/javascript\">
 			WebFontConfig = {
-			google: { families: [ 'Special+Elite::latin', 'Playfair+Display::latin', 'Griffy::latin', 'Indie+Flower::latin', 'Open+Sans::latin',  'Poiret+One::latin', 'Philosopher::latin', 'Orbitron::latin', 'Patua+One::latin', 'Limelight::latin'] }
+			google: { families: [ 'Special+Elite::latin', 'Playfair+Display::latin', 'Griffy::latin', 'Indie+Flower::latin', 'Open+Sans::latin',  'Poiret+One::latin', 'Philosopher::latin', 'Orbitron::latin', 'Patua+One::latin', 'Limelight::latin', 'Ubuntu::latin', 'Roboto::latin', 'Raleway::latin', 'Roboto+Slab::latin' ] }
 			};
 			(function() {
 			var wf = document.createElement('script');
@@ -186,14 +186,19 @@ class Site_Launcher
 			
 				// if user is not on whitelist 
 				if( !in_array( $_SERVER['REMOTE_ADDR'], $ip_array ) ){
+					if ( $this->get_plugin_action() == 'redirect' ) {
+						//send a 503 - service unavailable code
+						header( 'HTTP/1.1 503 Service Unavailable' );
+						header( 'Location: '.$this->get_redirect_url() );
+					} else {
+						//send a 503 - service unavailable code
+						header( 'HTTP/1.1 503 Service Unavailable' );
 
-					//send a 503 - service unavailable code
-					header( 'HTTP/1.1 503 Service Unavailable' );
-
-					require_once ( 'site-launcher-display.php' );
-					$options = get_option( 'site_launcher_display_options' );
-					display_site_down_page( $options, $this->get_plugin_mode() );
-					die();
+						require_once ( 'site-launcher-display.php' );
+						$options = get_option( 'site_launcher_display_options' );
+						display_site_down_page( $options, $this->get_plugin_mode() );
+						die();
+					}
 				}
 			}
 		}
@@ -357,6 +362,49 @@ class Site_Launcher
 		}
 		
 		return $mode;
+	}
+	
+	// check whether to show page or redirect to given url
+	function get_plugin_action()
+	{
+		if ( get_option( 'site_launcher_mode' ) && get_option( 'site_launcher_action' )  && $this->get_redirect_url() ) 
+		{
+			if  ( get_option( 'site_launcher_mode' ) == 'coming_soon' &&  ( $this->get_site_launch_date() !==  'now' ) )
+			{
+				$action = get_option( 'site_launcher_action' );
+			}
+			elseif ( ( get_option( 'site_launcher_mode' ) == 'site_suspended'  ||  get_option( 'site_launcher_mode' ) == 'site_scheduled_for_suspension' ) && ( $this->get_site_suspend_date() === 'now' ) )
+			{
+				$action = get_option( 'site_launcher_action_suspended' );
+			}
+			else
+			{
+				$action = 'show_page';
+			}
+		}
+		else	//if mode or action are not set yet, or if url is malconfigured
+		{
+			$action = 'show_page';
+		}
+		
+		return $action;
+	}
+
+	function get_redirect_url()
+	{
+		$url = '';
+		if ( get_option( 'site_launcher_mode' ) == 'coming_soon' )
+		{
+			$url = get_option( 'site_launcher_redirect_url' );
+		}
+		elseif ( get_option( 'site_launcher_mode' ) == 'site_suspended'  ||  get_option( 'site_launcher_mode' ) == 'site_scheduled_for_suspension' )
+		{
+			$url = get_option( 'site_launcher_redirect_url_suspended' );
+		}
+		
+		$url = filter_var( $url, FILTER_VALIDATE_URL );
+		
+		return $url;
 	}
 
 	function get_site_launch_date()
