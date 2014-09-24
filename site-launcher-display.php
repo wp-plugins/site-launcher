@@ -24,6 +24,7 @@ function display_site_down_page( $options, $status )
 		$background_color	=		$options['background_color'];
 		$text_color		=		$options['text_color'];
 		$message_box_opacity	=		$options['message_box_opacity'];
+		$message_box_border	= 		$options['message_box_border'];
 		$font			=		$options['font'];
 		$show_login		=		$options['show_login'];
 		$login_message		=		$options['login_message'];
@@ -34,15 +35,29 @@ function display_site_down_page( $options, $status )
 		$background_color	=		$options['background_color_suspended'];
 		$text_color		=		$options['text_color_suspended'];
 		$message_box_opacity	=		$options['message_box_opacity_suspended'];
+		$message_box_border	= 		$options['message_box_border_suspended'];
 		$font			=		$options['font_suspended'];
 		$show_login		=		$options['show_login_suspended'];
 		$login_message		=		$options['login_message_suspended'];	
-	
 	} else {
 		return;
 	}
 
-
+	$fine_print = str_replace( '\"', '"', $fine_print );
+	
+	if ( $message_box_border == '3-d' )
+	{
+		$message_box_border_string = '6px ridge '.$background_color;
+	}
+	elseif ( $message_box_border == 'simple' )
+	{
+		$message_box_border_string = '6px double '.$background_color;
+	}
+	else
+	{
+		$message_box_border_string = 'none';	
+	}
+	
 ?>
  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,23 +86,28 @@ function display_site_down_page( $options, $status )
 	  padding:80px 40px;
 	  background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
 	  margin: 80px auto;
+	  border: <?php echo $message_box_border_string; ?>;
 	}
 
 	h1 {
 	  font-size: 48px;
-	  font-weight: 300;
+	  font-weight: normal;
 	  margin: 0 0 20px 0;
 	}
 
 	p {
-	  font-size: 18px;
-	  font-weight: 200;
+	  font-size: 22px;
+	  font-weight: normal;
 	  margin-bottom: 20px;
 	  margin: 0 0 10px;
 	}
 
 	p.fineprint {
-	  font-size:16px;
+	  font-size:22px;
+	}
+	
+	a {
+	  color: <?php echo $text_color; ?>;
 	}
 	</style>
     </head>
@@ -97,7 +117,7 @@ function display_site_down_page( $options, $status )
 	<p class="fineprint"><?php echo $fine_print; ?></p>
 	<?php if ( $show_login != 0 ) { ?>
 	<br /><p><?php echo $login_message; ?></p>
-	<div style="width:300px; margin:10px auto;"><?php wp_login_form( ); ?> </div>
+	<div style="width:400px; margin:10px auto;"><?php wp_login_form( ); ?> </div>
 	<?php } ?>
     </div>
     </body>

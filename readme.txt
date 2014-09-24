@@ -4,7 +4,7 @@ Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
 Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
 Requires at least: 2.7
 Tested up to: 4.0.0
-Stable tag: 0.8.0
+Stable tag: 0.8.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,10 +36,14 @@ YES! Please contact me at saill@wickedcleverlabs.com if you would like to transl
 1. The default admin page for Site Launcher.
 2. The Site Launcher admin page in Coming Soon mode.
 3. The Site Launcher admin page in Site Suspended mode.
-4. The user view of the default Coming Soon page.
-5. The user view of the default Site Suspended page.
+4. The visitor view of the default Coming Soon page.
+5. The visitor view of a customized Coming soon page.
+6. The visitor view of the default Site Suspended page.
 
 == Changelog ==
+
+= 0.8.1
+* Added border for message box. Now allows html in "fine print". Fixed bug that caused login form to mysteriously re-appear. Adjusted fine print font size.
 
 = 0.8.0 =
 * NEW FEATURE: allows a redirect to a different URL rather than showing coming soon or site suspended page. Also added some more fonts.
