@@ -74,13 +74,13 @@ function display_site_down_page( $options, $status, $path )
 	<style type="text/css">
 		body {
 		background-color: <?php echo $background_color; ?>;
-		<?php if ( $background_image == 'none' ) { ?>
-		background-image: none;
-		<?php } else { ?>
+		<?php if ( strpos( $background_image, '.jpg' ) || strpos( $background_image, '.png' ) || strpos( $background_image, '.gif' ) ) { ?>
 		background-image: url(<?php echo $path.'images/full/'.$background_image; ?>);
 		background-position: center top;
 		background-repeat: no-repeat;
 		background-size: 100% auto;
+		<?php } else { ?>
+		background-image: none;
 		<?php } ?>
 		color: <?php echo $text_color; ?>;
 		}
