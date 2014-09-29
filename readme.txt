@@ -4,7 +4,7 @@ Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
 Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
 Requires at least: 2.7
 Tested up to: 4.0.0
-Stable tag: 0.9.0
+Stable tag: 0.9.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +26,6 @@ Lets you set a date to launch or suspend your site automatically. Lets you choos
 = What new features are you planning? =
 
 In the near future we will be adding an image uploader for custom background images.
-
 We will also be adding a visible countdown timer.
 
 = Do you need help translating this plugin? =
@@ -42,6 +41,9 @@ YES! Please contact me at saill@wickedcleverlabs.com if you would like to transl
 6. The Site Launcher admin page in Site Suspended mode.
 
 == Changelog ==
+
+= 0.9.1
+* Made background display code bulletproof
 
 = 0.9.0
 * Added some beautiful background images!
