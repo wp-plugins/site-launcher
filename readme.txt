@@ -35,7 +35,7 @@ YES! Please contact me at saill@wickedcleverlabs.com if you would like to transl
 == Screenshots == 
 
 1. The default Coming Soon page.
-2. A customized Coming soon page.
+2. A customized Coming Soon page.
 3. The default Site Suspended page.
 4. The default admin page for Site Launcher.
 5. The Site Launcher admin page in Coming Soon mode.
