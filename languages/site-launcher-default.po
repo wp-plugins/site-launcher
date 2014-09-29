@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 14:28-0700\n"
+"POT-Creation-Date: 2014-09-28 22:17-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,230 +17,238 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: site-launcher-admin.php:386
+#: site-launcher-admin.php:393
 msgid ""
 "JavaScript appears to be disabled in your browser. For this plugin to work "
 "correctly, please enable JavaScript or switch to a more modern browser."
 msgstr ""
 
-#: site-launcher-admin.php:394
+#: site-launcher-admin.php:400
 msgid "Site Launcher"
 msgstr ""
 
-#: site-launcher-admin.php:403
+#: site-launcher-admin.php:409
 msgid "Select Mode"
 msgstr ""
 
-#: site-launcher-admin.php:408
+#: site-launcher-admin.php:414
 msgid "Website is Live"
 msgstr ""
 
-#: site-launcher-admin.php:410
+#: site-launcher-admin.php:416
 msgid "Launch Website"
 msgstr ""
 
-#: site-launcher-admin.php:412
+#: site-launcher-admin.php:418
 msgid "Unsuspend Website"
 msgstr ""
 
-#: site-launcher-admin.php:418
+#: site-launcher-admin.php:424
 msgid "\"Coming Soon\" mode."
 msgstr ""
 
-#: site-launcher-admin.php:422
+#: site-launcher-admin.php:428
 msgid "\"Site Suspended\" mode."
 msgstr ""
 
-#: site-launcher-admin.php:433
+#: site-launcher-admin.php:439
 msgid "Coming Soon Settings"
 msgstr ""
 
-#: site-launcher-admin.php:440
+#: site-launcher-admin.php:446
 msgid "Launch Mode"
 msgstr ""
 
-#: site-launcher-admin.php:447 site-launcher-admin.php:635
-#: site-launcher-admin.php:700 site-launcher-admin.php:889
+#: site-launcher-admin.php:453 site-launcher-admin.php:670
+#: site-launcher-admin.php:735 site-launcher-admin.php:953
 msgid "Login Form"
 msgstr ""
 
-#: site-launcher-admin.php:450
+#: site-launcher-admin.php:456
 msgid "Launch when I select the \"Launch Website\" option"
 msgstr ""
 
-#: site-launcher-admin.php:453
+#: site-launcher-admin.php:459
 msgid "Launch on this date and time:"
 msgstr ""
 
-#: site-launcher-admin.php:489 site-launcher-admin.php:742
+#: site-launcher-admin.php:495 site-launcher-admin.php:777
 msgid "Make sure your timezone is set correctly in Settings->General"
 msgstr ""
 
-#: site-launcher-admin.php:498 site-launcher-admin.php:753
+#: site-launcher-admin.php:504 site-launcher-admin.php:788
 msgid "Action"
 msgstr ""
 
-#: site-launcher-admin.php:505 site-launcher-admin.php:760
+#: site-launcher-admin.php:511 site-launcher-admin.php:795
 msgid "Select Action"
 msgstr ""
 
-#: site-launcher-admin.php:509 site-launcher-admin.php:764
+#: site-launcher-admin.php:515 site-launcher-admin.php:799
 msgid "Redirect to a different URL."
 msgstr ""
 
-#: site-launcher-admin.php:513
+#: site-launcher-admin.php:519
 msgid "Show \"Coming Soon\" page."
 msgstr ""
 
-#: site-launcher-admin.php:523 site-launcher-admin.php:778
+#: site-launcher-admin.php:529 site-launcher-admin.php:813
 msgid "URL to redirect to:"
 msgstr ""
 
-#: site-launcher-admin.php:538
+#: site-launcher-admin.php:544
 msgid "Coming Soon Page Settings"
 msgstr ""
 
-#: site-launcher-admin.php:543 site-launcher-admin.php:797
+#: site-launcher-admin.php:549 site-launcher-admin.php:832
 msgid "Message Text:"
 msgstr ""
 
-#: site-launcher-admin.php:547 site-launcher-admin.php:801
+#: site-launcher-admin.php:553 site-launcher-admin.php:836
 msgid "Fine Print:<br />(html allowed)"
 msgstr ""
 
-#: site-launcher-admin.php:551 site-launcher-admin.php:805
+#: site-launcher-admin.php:557 site-launcher-admin.php:840
 msgid "Background Color"
 msgstr ""
 
-#: site-launcher-admin.php:557 site-launcher-admin.php:811
+#: site-launcher-admin.php:563 site-launcher-admin.php:846
+msgid "Background Image:"
+msgstr ""
+
+#: site-launcher-admin.php:592 site-launcher-admin.php:875
 msgid "Text Color:"
 msgstr ""
 
-#: site-launcher-admin.php:563 site-launcher-admin.php:817
+#: site-launcher-admin.php:598 site-launcher-admin.php:881
 msgid "Font:"
 msgstr ""
 
-#: site-launcher-admin.php:591 site-launcher-admin.php:845
+#: site-launcher-admin.php:626 site-launcher-admin.php:909
 msgid "Message Box Width:"
 msgstr ""
 
-#: site-launcher-admin.php:597 site-launcher-admin.php:851
+#: site-launcher-admin.php:632 site-launcher-admin.php:915
 msgid "Message Box Opacity:"
 msgstr ""
 
-#: site-launcher-admin.php:605 site-launcher-admin.php:859
+#: site-launcher-admin.php:640
 msgid "1 = white, 0 = transparent"
 msgstr ""
 
-#: site-launcher-admin.php:612 site-launcher-admin.php:866
+#: site-launcher-admin.php:647 site-launcher-admin.php:930
 msgid "Message Box Border:"
 msgstr ""
 
-#: site-launcher-admin.php:616 site-launcher-admin.php:870
+#: site-launcher-admin.php:651 site-launcher-admin.php:934
 msgid "Message Box Border"
 msgstr ""
 
-#: site-launcher-admin.php:619 site-launcher-admin.php:873
+#: site-launcher-admin.php:654 site-launcher-admin.php:937
 msgid "None"
 msgstr ""
 
-#: site-launcher-admin.php:622 site-launcher-admin.php:876
+#: site-launcher-admin.php:657 site-launcher-admin.php:940
 msgid "Simple"
 msgstr ""
 
-#: site-launcher-admin.php:625 site-launcher-admin.php:879
+#: site-launcher-admin.php:660 site-launcher-admin.php:943
 msgid "3-D"
 msgstr ""
 
-#: site-launcher-admin.php:631 site-launcher-admin.php:885
+#: site-launcher-admin.php:666 site-launcher-admin.php:949
 msgid "Show log-in form:"
 msgstr ""
 
-#: site-launcher-admin.php:638 site-launcher-admin.php:892
+#: site-launcher-admin.php:673 site-launcher-admin.php:956
 msgid "Show"
 msgstr ""
 
-#: site-launcher-admin.php:641 site-launcher-admin.php:895
+#: site-launcher-admin.php:676 site-launcher-admin.php:959
 msgid "Hide"
 msgstr ""
 
-#: site-launcher-admin.php:647 site-launcher-admin.php:901
+#: site-launcher-admin.php:682 site-launcher-admin.php:965
 msgid "Log-in Message:"
 msgstr ""
 
-#: site-launcher-admin.php:657 site-launcher-admin.php:911
+#: site-launcher-admin.php:692 site-launcher-admin.php:975
 msgid "IP Address Whitelist"
 msgstr ""
 
-#: site-launcher-admin.php:663 site-launcher-admin.php:917
+#: site-launcher-admin.php:698 site-launcher-admin.php:981
 msgid "IP Address:"
 msgstr ""
 
-#: site-launcher-admin.php:663 site-launcher-admin.php:917
+#: site-launcher-admin.php:698 site-launcher-admin.php:981
 msgid "Get Current Address"
 msgstr ""
 
-#: site-launcher-admin.php:675 site-launcher-admin.php:929
+#: site-launcher-admin.php:710 site-launcher-admin.php:993
 msgid "Remove Selected IP Address"
 msgstr ""
 
-#: site-launcher-admin.php:686
+#: site-launcher-admin.php:721
 msgid "Site Suspended Settings"
 msgstr ""
 
-#: site-launcher-admin.php:693
+#: site-launcher-admin.php:728
 msgid "Suspend Mode"
 msgstr ""
 
-#: site-launcher-admin.php:703
+#: site-launcher-admin.php:738
 msgid "Suspend site NOW!"
 msgstr ""
 
-#: site-launcher-admin.php:706
+#: site-launcher-admin.php:741
 msgid "Suspend on this date and time:"
 msgstr ""
 
-#: site-launcher-admin.php:768
+#: site-launcher-admin.php:803
 msgid "Show \"Site Suspended\" page."
 msgstr ""
 
-#: site-launcher-admin.php:792
+#: site-launcher-admin.php:827
 msgid "Show Custom Site Suspended Page"
 msgstr ""
 
-#: site-launcher-admin.php:938
+#: site-launcher-admin.php:923
+msgid "1 = black, 0 = transparent"
+msgstr ""
+
+#: site-launcher-admin.php:1002
 msgid "Users to Convert to Subscribers until Site is Unsuspended"
 msgstr ""
 
-#: site-launcher-admin.php:996
+#: site-launcher-admin.php:1060
 msgid "Admins Who Have Access to Plugin Settings"
 msgstr ""
 
-#: site-launcher-admin.php:1036
+#: site-launcher-admin.php:1100
 msgid "Save Changes"
 msgstr ""
 
-#: site-launcher.php:302
+#: site-launcher.php:318
 msgid "Website is LIVE!"
 msgstr ""
 
-#: site-launcher.php:308
+#: site-launcher.php:324
 msgid "Website is coming soon."
 msgstr ""
 
-#: site-launcher.php:312
+#: site-launcher.php:328
 msgid "Website has been launched!"
 msgstr ""
 
-#: site-launcher.php:316
+#: site-launcher.php:332
 msgid "Website is scheduled for launch on: "
 msgstr ""
 
-#: site-launcher.php:324
+#: site-launcher.php:340
 msgid "Website has been suspended!"
 msgstr ""
 
-#: site-launcher.php:329
+#: site-launcher.php:345
 msgid "Website is scheduled to be suspended on: "
 msgstr ""
 

@@ -22,11 +22,11 @@
 
 
 $fonts = array(
+	'robotoslab'		=>	'"Roboto Slab", serif',
 	'sans'			=>	'"Open Sans", sans-serif',
 	'ubuntu'		=>	'"Ubuntu", sans-serif',
 	'raleway'		=>	'"Raleway", sans-serif',
 	'roboto'		=>	'"Roboto", sans-serif',
-	'robotoslab'		=>	'"Roboto Slab", serif',
 	'philosopher'		=>	'"Philosopher", sans-serif',
 	'playfair'		=>	'"Playfair Display", serif',
 	'poiret'		=>	'"Poiret One", cursive',
@@ -76,24 +76,26 @@ if ( isset( $_POST[ 'redirect_url_suspended' ] ) )
 
 // initialize display options to pre-set defaults
 $display_options = array(
-	'message_text'			=>	'is coming soon.',
+	'message_text'			=>	'is under construction.',
 	'fine_print'			=>	'',
 	'background_color'		=>	'#92b7ce',
+	'background_image'		=>	'crane_and_tree__david_alexander_straight.jpg',
 	'text_color'			=>	'#111111',
 	'message_box_width'		=>	'900px',
-	'message_box_opacity'		=>	'0.5',
-	'message_box_border'		=>	'none',
-	'font'				=>	'"Open Sans", sans-serif',
+	'message_box_opacity'		=>	'0.7',
+	'message_box_border'		=>	'3-d',
+	'font'				=>	'"Roboto Slab", serif',
 	'show_login'			=>	'1',
 	'login_message'			=>	'Log in here to preview:',
 	'message_text_suspended'	=>	'has been suspended.',
 	'fine_print_suspended'		=>	'',
-	'background_color_suspended'	=>	'#530000',
+	'background_color_suspended'	=>	'#000',
+	'background_image_suspended'	=>	'night_ship__national_archives.jpg',
 	'text_color_suspended'		=>	'#fff',
 	'message_box_width_suspended'	=>	'900px',
 	'message_box_opacity_suspended'	=>	'0.3',
-	'message_box_border_suspended'	=>	'none',
-	'font_suspended'		=>	'"Open Sans", sans-serif',
+	'message_box_border_suspended'	=>	'3-d',
+	'font_suspended'		=>	'"Roboto Slab", serif',
 	'show_login_suspended'		=>	'0',
 	'login_message_suspended'	=>	'Web master log in here:'
 );
@@ -129,6 +131,11 @@ foreach ( $display_options as $display_option_name=>$display_option )
 	// or default to stored data
   	elseif ( $this->get_display_option( $display_option_name ) !== false )
   	{
+		// for legacy installs, set background images to 'none'
+		if ( strpos( $display_option_name, 'background_image' ) !== false )
+		{
+			$display_options[ $display_option_name ] = 'none';
+		}
 		$display_options[ $display_option_name ] = $this->get_display_option( $display_option_name );
 	}
 }
@@ -389,11 +396,10 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 <div class="wrap">
 
 	<form method="post"
-		action="<?php echo $GLOBALS['PHP_SELF'] . '?page=' . $this->main_options_page; ?>"
-		id="ucoptions">
+		action="<?php echo $GLOBALS['PHP_SELF'] . '?page=' . $this->main_options_page; ?>">
 		<h2><?php _e( 'Site Launcher', 'site-launcher' );?></h2><br />
 		<div class="site-launcher-box">
-			<h3><?php echo $this->get_status_message(); ?></h3>
+			<h2><?php echo $this->get_status_message(); ?></h2>
 		</div>
 		<table>
 			<tr>
@@ -554,9 +560,38 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
-				<td style="padding-left:5px;">
-				<input style="width:70px;" type="text" name="text_color" class="text_color" value="<?php echo $this->get_display_option( 'text_color' ); ?>" data-default-color="#111111" />
+				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Background Image:', 'site-launcher' );?></th><td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<?php
+				$imagefiles = $this->get_filenames('full');
+				$fullpathname = WP_PLUGIN_URL.'/'.$this->installed_folder.'/images/full/';
+				$count = 0;
+				foreach ( $imagefiles as $imagefile ) {
+					$count++;
+					$imagefilenicename = str_replace('__', ' - ',  $imagefile );
+					$imagefilenicename = str_replace('_', ' ',  $imagefilenicename );
+					$imagefilenicename = str_replace('.jpg', '',  $imagefilenicename );
+					$imagefilenicename = str_replace('.png', '',  $imagefilenicename );
+					$imagefilenicename = str_replace('.gif', '',  $imagefilenicename );
+					$imagefilenicename = ucwords( $imagefilenicename );
+				?>
+					<?php if ( $count == 1 ) { ?>
+					<label title="No Image">
+					<input  type="radio" name="background_image" class="background_image" value="none" <?php if ( $this->get_display_option( 'background_image' ) == 'none' ) echo ' checked="checked"'; ?>/>&nbsp; <div style="display:inline-block;width:190px;background-color:<?php echo $this->get_display_option( 'background_color' ); ?>;"><img style="margin:5px 0;width:190px;height;100px;vertical-align:middle;" src="<?php echo $fullpathname.'transparent.gif'; ?>" /></div>
+					</label>				
+					<?php } ?>
+					<label title="<?php echo $imagefilenicename; ?>">
+					<input  type="radio" name="background_image" class="background_image" value="<?php echo $imagefile; ?>" <?php if ( $this->get_display_option( 'background_image' ) == $imagefile ) echo ' checked="checked"'; ?>/>&nbsp;<img style="margin:5px 0;width:190px;height;auto;vertical-align:middle;" src="<?php echo $fullpathname.$imagefile; ?>" /> 
+					</label><?php if ( ($count + 1) % 3  == 0 ) echo '<br />'; ?>
+				<?php } ?>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row" style="padding-top:15px;width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
+				<td style="padding-left:5px;padding-top:15px">
+				<input style="width:70px;" type="text" name="text_color" class="text_color" value="<?php echo $this->get_display_option( 'text_color' ); ?>" data-default-color="#ffffff" />
 				</td>
 			</tr>
 			<tr valign="top">
@@ -808,6 +843,35 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
+				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Background Image:', 'site-launcher' );?></th><td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<?php
+				$imagefiles = $this->get_filenames('full');
+				$fullpathname = WP_PLUGIN_URL.'/'.$this->installed_folder.'/images/full/';
+				$count = 0;
+				foreach ( $imagefiles as $imagefile ) {
+					$count++;
+					$imagefilenicename = str_replace('__', ' - ',  $imagefile );
+					$imagefilenicename = str_replace('_', ' ',  $imagefilenicename );
+					$imagefilenicename = str_replace('.jpg', '',  $imagefilenicename );
+					$imagefilenicename = str_replace('.png', '',  $imagefilenicename );
+					$imagefilenicename = str_replace('.gif', '',  $imagefilenicename );
+					$imagefilenicename = ucwords( $imagefilenicename );
+				?>
+					<?php if ( $count == 1 ) { ?>
+					<label title="No Image">
+					<input  type="radio" name="background_image_suspended" class="background_image_suspended" value="none" <?php if ( $this->get_display_option( 'background_image_suspended' ) == 'none' ) echo ' checked="checked"'; ?>/>&nbsp; <div style="display:inline-block;width:190px;background-color:<?php echo $this->get_display_option( 'background_color_suspended' ); ?>;"><img style="margin:5px 0;width:190px;height;100px;vertical-align:middle;" src="<?php echo $fullpathname.'transparent.gif'; ?>" /></div>
+					</label>				
+					<?php } ?>
+					<label title="<?php echo $imagefilenicename; ?>">
+					<input  type="radio" name="background_image_suspended" class="background_image_suspended" value="<?php echo $imagefile; ?>" <?php if ( $this->get_display_option( 'background_image_suspended' ) == $imagefile ) echo ' checked="checked"'; ?>/>&nbsp;<img style="margin:5px 0;width:190px;height;auto;vertical-align:middle;" src="<?php echo $fullpathname.$imagefile; ?>" /> 
+					</label><?php if ( ($count + 1) % 3  == 0 ) echo '<br />'; ?>
+				<?php } ?>
+				</td>
+			</tr>
+			<tr valign="top">
 				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<input style="width:70px;" type="text" name="text_color_suspended" class="text_color_suspended" value="<?php echo $this->get_display_option( 'text_color_suspended' ); ?>" data-default-color="#ffffff" />
@@ -856,7 +920,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 								<input style="width:40px;" type="text" name="message_box_opacity_suspended" id="message_box_opacity_suspended" value="<?php echo $this->get_display_option( 'message_box_opacity' ); ?>" />
 							</td>
 							<td style="padding-left:15px;">
-								<?php _e( '1 = white, 0 = transparent', 'site-launcher' );?>
+								<?php _e( '1 = black, 0 = transparent', 'site-launcher' );?>
 							</td>
 						</tr>
 					</table>

@@ -2,8 +2,8 @@
 /*
  Plugin Name: Site Launcher
  Plugin URI: http://www.wickedcleverlabs.com/site-launcher
- Description: Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates nicely customizable Coming Soon and Site Suspended pages, or allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
- Version: 0.8.1
+ Description: Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates beautiful, Coming Soon and Site Suspended pages with customizable background image or colors and text. Alternatively allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
+ Version: 0.9.0
  Author: Saill White
  Author URI: http://www.wickedcleverlabs.com/
  Text Domain: site-launcher
@@ -108,7 +108,7 @@ class Site_Launcher
 	}
 	
 	
-	function plugin_links($links, $file)
+	function plugin_links( $links, $file )
 	{
 		if ( $file == basename( dirname(__FILE__) ).'/'.basename(__FILE__) && function_exists("admin_url") )
 		{
@@ -124,6 +124,22 @@ class Site_Launcher
 		require_once ( 'site-launcher-admin.php' );
 	}
 
+	
+	function get_filenames( $dir )
+	{
+		$fullpathname = plugin_dir_path( __FILE__ ).'/images/'.$dir;
+		$filelist = array();
+		if (is_dir( $fullpathname )) {
+			if ( $dh = opendir( $fullpathname ) ) {
+				while ( ( $file = readdir( $dh ) ) !== false) {
+					if ( ( strpos( $file, '.jpg' ) || strpos( $file, '.png' ) || strpos( $file, '.gif' ) ) && $file !== 'transparent.gif' ) $filelist[] = $file;
+				}
+				closedir( $dh );
+			}
+		}
+		return $filelist;
+	}
+	
 	function register_admin_scripts()
 	{
 		wp_register_script( 'site-launcher-js', WP_PLUGIN_URL.'/'.$this->installed_folder.'/site-launcher.dev.js' );
@@ -196,7 +212,7 @@ class Site_Launcher
 
 						require_once ( 'site-launcher-display.php' );
 						$options = get_option( 'site_launcher_display_options' );
-						display_site_down_page( $options, $this->get_plugin_mode() );
+						display_site_down_page( $options, $this->get_plugin_mode(), WP_PLUGIN_URL.'/'.$this->installed_folder.'/' );
 						die();
 					}
 				}

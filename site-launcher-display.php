@@ -13,15 +13,15 @@
  along with Site Launcher.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-function display_site_down_page( $options, $status )
+function display_site_down_page( $options, $status, $path )
 {
-
 	if ( $status == 'coming_soon' ) {
 		$message_text		=		$options['message_text'];
 		$fine_print		=		$options['fine_print'];
 		$message_box_width	=		$options['message_box_width'];
 		$background_color	=		$options['background_color'];
+		$background_image	=		$options['background_image'];
+		$background_repeat	=		$options['background_repeat'];
 		$text_color		=		$options['text_color'];
 		$message_box_opacity	=		$options['message_box_opacity'];
 		$message_box_border	= 		$options['message_box_border'];
@@ -33,6 +33,8 @@ function display_site_down_page( $options, $status )
 		$fine_print		=		$options['fine_print_suspended'];
 		$message_box_width	=		$options['message_box_width'];
 		$background_color	=		$options['background_color_suspended'];
+		$background_image	=		$options['background_image_suspended'];
+		$background_repeat	=		$options['background_repeat_suspended'];
 		$text_color		=		$options['text_color_suspended'];
 		$message_box_opacity	=		$options['message_box_opacity_suspended'];
 		$message_box_border	= 		$options['message_box_border_suspended'];
@@ -57,69 +59,83 @@ function display_site_down_page( $options, $status )
 	{
 		$message_box_border_string = 'none';	
 	}
-	
+	$image = 'crane2';
+
 ?>
  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+	<!-- -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href='http://fonts.googleapis.com/css?family=Special+Elite|Playfair+Display|Griffy|Indie+Flower|Open+Sans|Poiret+One|Philosopher|Orbitron|Patua+One|Limelight|Ubuntu|Roboto|Raleway|Roboto+Slab' rel='stylesheet' type='text/css'>
         <title>
            <?php bloginfo( 'name' ); ?>
         </title>
 	<style type="text/css">
-	body {
-	  background-color: <?php echo $background_color; ?>;
-	  color: <?php echo $text_color; ?>;
-	}
+		body {
+		background-color: <?php echo $background_color; ?>;
+		<?php if ( $background_image == 'none' ) { ?>
+		background-image: none;
+		<?php } else { ?>
+		background-image: url(<?php echo $path.'images/full/'.$background_image; ?>);
+		background-position: center top;
+		background-repeat: no-repeat;
+		background-size: 100% auto;
+		<?php } ?>
+		color: <?php echo $text_color; ?>;
+		}
 
-	body, h1, p {
-	  font-family: <?php echo $font; ?>;
-	  font-weight: normal;
-	  margin: 0;
-	  padding: 0;
-	  text-align: center;
-	}
-	
-	.container {
-	  width:  <?php echo $message_box_width; ?>;
-	  padding:80px 40px;
-	  background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
-	  margin: 80px auto;
-	  border: <?php echo $message_box_border_string; ?>;
-	}
+		body, h1, p {
+		font-family: <?php echo $font; ?>;
+		font-weight: normal;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		}
+		
+		.container {
+		width:  <?php echo $message_box_width; ?>;
+		padding:70px 40px;
+		<?php if ( $status == 'coming_soon' ) { ?>
+		background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
+		<?php } else { ?>
+		background-color: rgba(0,0,0, <?php echo $message_box_opacity; ?>);		
+		<?php } ?>
+		margin: 90px auto;
+		border: <?php echo $message_box_border_string; ?>;
+		}
 
-	h1 {
-	  font-size: 48px;
-	  font-weight: normal;
-	  margin: 0 0 20px 0;
-	}
+		h1 {
+		font-size: 48px;
+		font-weight: normal;
+		margin: 0 0 20px 0;
+		}
 
-	p {
-	  font-size: 22px;
-	  font-weight: normal;
-	  margin-bottom: 20px;
-	  margin: 0 0 10px;
-	}
+		p {
+		font-size: 22px;
+		font-weight: normal;
+		margin-bottom: 20px;
+		margin: 0 0 10px;
+		}
 
-	p.fineprint {
-	  font-size:22px;
-	}
-	
-	a {
-	  color: <?php echo $text_color; ?>;
-	}
+		p.fineprint {
+		font-size:22px;
+		}
+		
+		a {
+		color: <?php echo $text_color; ?>;
+		}
 	</style>
     </head>
     <body>
-      <div class="container">
-	<h1><?php bloginfo( 'name' ); ?> <?php echo $message_text; ?></h1>
-	<p class="fineprint"><?php echo $fine_print; ?></p>
-	<?php if ( $show_login != 0 ) { ?>
-	<br /><p><?php echo $login_message; ?></p>
-	<div style="width:400px; margin:10px auto;"><?php wp_login_form( ); ?> </div>
-	<?php } ?>
-    </div>
+	<div class="container">
+		<h1><?php bloginfo( 'name' ); ?> <?php echo $message_text; ?></h1>
+		<p class="fineprint"><?php echo $fine_print; ?></p>
+		<?php if ( $show_login != 0 ) { ?>
+		<br /><p><?php echo $login_message; ?></p>
+		<div style="width:400px; margin:10px auto;"><?php wp_login_form( ); ?> </div>
+		<?php } ?>
+	</div>
     </body>
 </html>
 <?php 

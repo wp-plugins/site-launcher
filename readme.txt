@@ -4,7 +4,7 @@ Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
 Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
 Requires at least: 2.7
 Tested up to: 4.0.0
-Stable tag: 0.8.1
+Stable tag: 0.9.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,7 +12,7 @@ Set a date to launch or suspend your site with custom "coming soon" and "site su
 
 == Description ==
 
-Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates nicely customizable Coming Soon and Site Suspended pages, or allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin by <a href="http://masseltech.com/" target="_blank">Jeremy Massel</a>. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
+Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates beautiful, Coming Soon and Site Suspended pages with customizable background image or colors and text. Alternatively allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
 
 == Installation ==
 
@@ -25,22 +25,26 @@ Lets you set a date to launch or suspend your site automatically. Lets you choos
 
 = What new features are you planning? =
 
-In the near future we will be adding a image uploads for a custom background image and/or favicon.
+In the near future we will be adding an image uploader for custom background images.
 
 We will also be adding a visible countdown timer.
 
 = Do you need help translating this plugin? =
 YES! Please contact me at saill@wickedcleverlabs.com if you would like to translate this plugin's admin interface into your native language. Reward: Wicked Clever coffee mug shipped to wherever you are!
-
+.
 == Screenshots == 
-1. The default admin page for Site Launcher.
-2. The Site Launcher admin page in Coming Soon mode.
-3. The Site Launcher admin page in Site Suspended mode.
-4. The visitor view of the default Coming Soon page.
-5. The visitor view of a customized Coming soon page.
-6. The visitor view of the default Site Suspended page.
+
+1. The default Coming Soon page.
+2. A customized Coming soon page.
+3. The default Site Suspended page.
+4. The default admin page for Site Launcher.
+5. The Site Launcher admin page in Coming Soon mode.
+6. The Site Launcher admin page in Site Suspended mode.
 
 == Changelog ==
+
+= 0.9.0
+* Added some beautiful background images!
 
 = 0.8.1
 * Added border for message box. Now allows html in "fine print". Fixed bug that caused login form to mysteriously re-appear. Adjusted fine print font size.
