@@ -97,6 +97,7 @@ function display_site_down_page( $options, $status, $path )
 		}
 		
 		.container {
+		max-width:80%;
 		width:  <?php echo $message_box_width; ?>;
 		padding:70px 40px;
 		<?php if ( $status == 'coming_soon' ) { ?>
@@ -128,9 +129,34 @@ function display_site_down_page( $options, $status, $path )
 		a {
 		color: <?php echo $text_color; ?>;
 		}
+		
 	</style>
+	
+	<!-- show vertical slice of background for phones in portrait orientation -->
+	<script language="javascript" type="text/javascript">
+		function resizeBackground()
+		{
+			if (document.body.clientWidth < 600)
+			{
+				document.body.style.backgroundSize =  '300% auto';
+			}
+			else if (document.body.clientWidth < 800)
+			{
+				document.body.style.backgroundSize =  '200% auto';
+			}
+			else if (document.body.clientWidth < 1000)
+			{
+				document.body.style.backgroundSize =  '150% auto';
+			}
+			else
+			{
+				document.body.style.backgroundSize =  '100% auto';
+			}
+		}
+	</script>
+
     </head>
-    <body>
+    <body onLoad="resizeBackground()" onResize="resizeBackground()">
 	<div class="container">
 		<h1><?php bloginfo( 'name' ); ?> <?php echo $message_text; ?></h1>
 		<p class="fineprint"><?php echo $fine_print; ?></p>
