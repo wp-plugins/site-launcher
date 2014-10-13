@@ -76,7 +76,7 @@ if ( isset( $_POST[ 'redirect_url_suspended' ] ) )
 
 // initialize display options to pre-set defaults
 $display_options = array(
-	'background_color'		=>	'5173a1',
+	'background_color'		=>	'#5173a1',
 	'background_image'		=>	'under_construction__david_alexander_straight.jpg',
 	'message_text'			=>	'is under construction.',
 	'fine_print'			=>	'',
