@@ -16,31 +16,33 @@
 function display_site_down_page( $options, $status, $path )
 {
 	if ( $status == 'coming_soon' ) {
-		$message_text		=		$options['message_text'];
-		$fine_print		=		$options['fine_print'];
-		$message_box_width	=		$options['message_box_width'];
 		$background_color	=		$options['background_color'];
 		$background_image	=		$options['background_image'];
 		$background_repeat	=		$options['background_repeat'];
+		$message_text		=		$options['message_text'];
+		$fine_print		=		$options['fine_print'];
+		$show_message_box	=		$options['show_message_box'];
 		$text_color		=		$options['text_color'];
+		$message_box_width	=		$options['message_box_width'];
 		$message_box_opacity	=		$options['message_box_opacity'];
 		$message_box_border	= 		$options['message_box_border'];
 		$font			=		$options['font'];
 		$show_login		=		$options['show_login'];
 		$login_message		=		$options['login_message'];
 	} elseif  ( $status == 'site_suspended' ) {
-		$message_text		=		$options['message_text_suspended'];
-		$fine_print		=		$options['fine_print_suspended'];
-		$message_box_width	=		$options['message_box_width'];
 		$background_color	=		$options['background_color_suspended'];
 		$background_image	=		$options['background_image_suspended'];
 		$background_repeat	=		$options['background_repeat_suspended'];
+		$message_text		=		$options['message_text_suspended'];
+		$fine_print		=		$options['fine_print_suspended'];
+		$show_message_box	=		$options['show_message_box_suspended'];
 		$text_color		=		$options['text_color_suspended'];
+		$message_box_width	=		$options['message_box_width_suspended'];
 		$message_box_opacity	=		$options['message_box_opacity_suspended'];
 		$message_box_border	= 		$options['message_box_border_suspended'];
 		$font			=		$options['font_suspended'];
 		$show_login		=		$options['show_login_suspended'];
-		$login_message		=		$options['login_message_suspended'];	
+		$login_message		=		$options['login_message_suspended'];
 	} else {
 		return;
 	}
@@ -59,7 +61,7 @@ function display_site_down_page( $options, $status, $path )
 	{
 		$message_box_border_string = 'none';	
 	}
-	$image = 'crane2';
+
 
 ?>
  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -67,6 +69,9 @@ function display_site_down_page( $options, $status, $path )
     <head>
 	<!-- -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <?php if ( $status == 'coming_soon' ) { ?>
+        <meta name="author" content="WordPress Site Launcher Plugin">
+        <?php } ?>
         <link href='http://fonts.googleapis.com/css?family=Special+Elite|Playfair+Display|Griffy|Indie+Flower|Open+Sans|Poiret+One|Philosopher|Orbitron|Patua+One|Limelight|Ubuntu|Roboto|Raleway|Roboto+Slab' rel='stylesheet' type='text/css'>
         <title>
            <?php bloginfo( 'name' ); ?>
@@ -74,13 +79,13 @@ function display_site_down_page( $options, $status, $path )
 	<style type="text/css">
 		body {
 		background-color: <?php echo $background_color; ?>;
-		<?php if ( $background_image == 'none' ) { ?>
-		background-image: none;
-		<?php } else { ?>
+		<?php if ( strpos( $background_image, '.jpg' ) || strpos( $background_image, '.png' ) || strpos( $background_image, '.gif' ) ) { ?>
 		background-image: url(<?php echo $path.'images/full/'.$background_image; ?>);
 		background-position: center top;
 		background-repeat: no-repeat;
 		background-size: 100% auto;
+		<?php } else { ?>
+		background-image: none;
 		<?php } ?>
 		color: <?php echo $text_color; ?>;
 		}
@@ -94,12 +99,18 @@ function display_site_down_page( $options, $status, $path )
 		}
 		
 		.container {
+		<?php if ( $show_message_box == 0) { ?>
+			display: none;
+		<?php } else { ?>
+			display: block;
+		<?php } ?>
+		max-width:80%;
 		width:  <?php echo $message_box_width; ?>;
 		padding:70px 40px;
 		<?php if ( $status == 'coming_soon' ) { ?>
-		background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
+			background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
 		<?php } else { ?>
-		background-color: rgba(0,0,0, <?php echo $message_box_opacity; ?>);		
+			background-color: rgba(0,0,0, <?php echo $message_box_opacity; ?>);		
 		<?php } ?>
 		margin: 90px auto;
 		border: <?php echo $message_box_border_string; ?>;
@@ -125,9 +136,34 @@ function display_site_down_page( $options, $status, $path )
 		a {
 		color: <?php echo $text_color; ?>;
 		}
+		
 	</style>
+	
+	<!-- show vertical slice of background for phones in portrait orientation -->
+	<script language="javascript" type="text/javascript">
+		function resizeBackground()
+		{
+			if (document.body.clientWidth < 600)
+			{
+				document.body.style.backgroundSize =  '300% auto';
+			}
+			else if (document.body.clientWidth < 800)
+			{
+				document.body.style.backgroundSize =  '200% auto';
+			}
+			else if (document.body.clientWidth < 1000)
+			{
+				document.body.style.backgroundSize =  '150% auto';
+			}
+			else
+			{
+				document.body.style.backgroundSize =  '100% auto';
+			}
+		}
+	</script>
+
     </head>
-    <body>
+    <body onLoad="resizeBackground()" onResize="resizeBackground()">
 	<div class="container">
 		<h1><?php bloginfo( 'name' ); ?> <?php echo $message_text; ?></h1>
 		<p class="fineprint"><?php echo $fine_print; ?></p>
