@@ -16,31 +16,33 @@
 function display_site_down_page( $options, $status, $path )
 {
 	if ( $status == 'coming_soon' ) {
-		$message_text		=		$options['message_text'];
-		$fine_print		=		$options['fine_print'];
-		$message_box_width	=		$options['message_box_width'];
 		$background_color	=		$options['background_color'];
 		$background_image	=		$options['background_image'];
 		$background_repeat	=		$options['background_repeat'];
+		$message_text		=		$options['message_text'];
+		$fine_print		=		$options['fine_print'];
+		$show_message_box	=		$options['show_message_box'];
 		$text_color		=		$options['text_color'];
+		$message_box_width	=		$options['message_box_width'];
 		$message_box_opacity	=		$options['message_box_opacity'];
 		$message_box_border	= 		$options['message_box_border'];
 		$font			=		$options['font'];
 		$show_login		=		$options['show_login'];
 		$login_message		=		$options['login_message'];
 	} elseif  ( $status == 'site_suspended' ) {
-		$message_text		=		$options['message_text_suspended'];
-		$fine_print		=		$options['fine_print_suspended'];
-		$message_box_width	=		$options['message_box_width'];
 		$background_color	=		$options['background_color_suspended'];
 		$background_image	=		$options['background_image_suspended'];
 		$background_repeat	=		$options['background_repeat_suspended'];
+		$message_text		=		$options['message_text_suspended'];
+		$fine_print		=		$options['fine_print_suspended'];
+		$show_message_box	=		$options['show_message_box_suspended'];
 		$text_color		=		$options['text_color_suspended'];
+		$message_box_width	=		$options['message_box_width_suspended'];
 		$message_box_opacity	=		$options['message_box_opacity_suspended'];
 		$message_box_border	= 		$options['message_box_border_suspended'];
 		$font			=		$options['font_suspended'];
 		$show_login		=		$options['show_login_suspended'];
-		$login_message		=		$options['login_message_suspended'];	
+		$login_message		=		$options['login_message_suspended'];
 	} else {
 		return;
 	}
@@ -59,7 +61,7 @@ function display_site_down_page( $options, $status, $path )
 	{
 		$message_box_border_string = 'none';	
 	}
-	$image = 'crane2';
+
 
 ?>
  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -97,13 +99,18 @@ function display_site_down_page( $options, $status, $path )
 		}
 		
 		.container {
+		<?php if ( $show_message_box == 0) { ?>
+			display: none;
+		<?php } else { ?>
+			display: block;
+		<?php } ?>
 		max-width:80%;
 		width:  <?php echo $message_box_width; ?>;
 		padding:70px 40px;
 		<?php if ( $status == 'coming_soon' ) { ?>
-		background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
+			background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
 		<?php } else { ?>
-		background-color: rgba(0,0,0, <?php echo $message_box_opacity; ?>);		
+			background-color: rgba(0,0,0, <?php echo $message_box_opacity; ?>);		
 		<?php } ?>
 		margin: 90px auto;
 		border: <?php echo $message_box_border_string; ?>;

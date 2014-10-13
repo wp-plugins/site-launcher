@@ -76,10 +76,11 @@ if ( isset( $_POST[ 'redirect_url_suspended' ] ) )
 
 // initialize display options to pre-set defaults
 $display_options = array(
+	'background_color'		=>	'5173a1',
+	'background_image'		=>	'under_construction__david_alexander_straight.jpg',
 	'message_text'			=>	'is under construction.',
 	'fine_print'			=>	'',
-	'background_color'		=>	'#92b7ce',
-	'background_image'		=>	'crane_and_tree__david_alexander_straight.jpg',
+	'show_message_box'		=>	'1',
 	'text_color'			=>	'#111111',
 	'message_box_width'		=>	'900px',
 	'message_box_opacity'		=>	'0.7',
@@ -87,10 +88,11 @@ $display_options = array(
 	'font'				=>	'"Roboto Slab", serif',
 	'show_login'			=>	'1',
 	'login_message'			=>	'Log in here to preview:',
-	'message_text_suspended'	=>	'has been suspended.',
-	'fine_print_suspended'		=>	'',
 	'background_color_suspended'	=>	'#000',
 	'background_image_suspended'	=>	'night_ship__national_archives.jpg',
+	'message_text_suspended'	=>	'has been suspended.',
+	'fine_print_suspended'		=>	'',
+	'show_message_box_suspended'	=>	'1',
 	'text_color_suspended'		=>	'#fff',
 	'message_box_width_suspended'	=>	'900px',
 	'message_box_opacity_suspended'	=>	'0.3',
@@ -399,7 +401,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 		action="<?php echo $GLOBALS['PHP_SELF'] . '?page=' . $this->main_options_page; ?>">
 		<h2><?php _e( 'Site Launcher', 'site-launcher' );?></h2><br />
 		<div class="site-launcher-box">
-			<h2><?php echo $this->get_status_message(); ?></h2>
+			<h2 style="font-weight:bold;"><?php echo $this->get_status_message(); ?></h2>
 		</div>
 		<table>
 			<tr>
@@ -526,7 +528,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 		
 		<table class="admin-table" id="setredirect" <?php if ( get_option( 'site_launcher_action' ) == 'show_page' || get_option( 'site_launcher_action' ) === false ) echo 'style="display:none;"'; ?> >
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'URL to redirect to:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'URL to redirect to:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<?php if ( ! get_option( 'site_launcher_redirect_url' ) &&  get_option( 'site_launcher_action' ) == 'redirect' ) echo '<span style="color:#bf0000;">Please enter a valid URL.</span><br />';
 				$url = get_option( 'site_launcher_redirect_url' );
@@ -541,26 +543,22 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 		
 			<tr>
 				<td colspan="2">
-				      <h3><?php _e( 'Coming Soon Page Settings', 'site-launcher' );?></h3>
+				      <h3 style="font-size:20px;"><?php _e( 'Coming Soon Page Settings', 'site-launcher' );?></h3>
 				</td>
 			</tr>
-
-			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;"><label for="message_text"> <?php _e( 'Message Text:', 'site-launcher' );?> </label></th>
-				<td><?php echo '<textarea rows="2" cols="42" name="message_text" id="message_text" class="regular-text">'.trim( $this->get_display_option( 'message_text' ) ).'</textarea>'; ?></td>
-			</tr>
-			<tr valign="top">
-				<th scope="row" style="width:70px;text-align:right;"><label for="fine_print"> <?php _e( 'Fine Print:<br />(html allowed)', 'site-launcher' );?> </label></th>
-				<td><?php echo '<textarea rows="4" cols="42" name="fine_print" id="fine_print" class="regular-text">'.trim( $this->get_display_option( 'fine_print' ) ).'</textarea>'; ?></td>
+			<tr>
+				<td colspan="2" class="dotted-divider">
+				      <h3><?php _e( 'Page Background', 'site-launcher' );?></h3>
+				</td>
 			</tr>
 			<tr>
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Background Color', 'site-launcher' ) ?>:</th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Background Color', 'site-launcher' ) ?>:</th>
 				<td style="padding-left:5px;">
 				<input style="width:70px;" type="text" name="background_color" class="background_color" value="<?php echo $this->get_display_option( 'background_color' ); ?>" data-default-color="#92b7ce" />
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Background Image:', 'site-launcher' );?></th><td>&nbsp;</td>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Background Image:', 'site-launcher' );?></th><td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -588,14 +586,56 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				<?php } ?>
 				</td>
 			</tr>
+			<tr>
+				<td colspan="2" style="height:15px;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="dotted-divider">
+				      <h3><?php _e( 'Message Box Content', 'site-launcher' );?></h3>
+				</td>
+			</tr>
 			<tr valign="top">
-				<th scope="row" style="padding-top:15px;width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;"><label for="message_text"> <?php _e( 'Message Text:', 'site-launcher' );?> </label></th>
+				<td><?php echo '<textarea rows="2" cols="42" name="message_text" id="message_text" class="regular-text">'.trim( $this->get_display_option( 'message_text' ) ).'</textarea>'; ?></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row" style="width:70px;text-align:left;"><label for="fine_print"> <?php _e( 'Fine Print:<br />(html allowed)', 'site-launcher' );?> </label></th>
+				<td><?php echo '<textarea rows="4" cols="42" name="fine_print" id="fine_print" class="regular-text">'.trim( $this->get_display_option( 'fine_print' ) ).'</textarea>'; ?></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="height:15px;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="dotted-divider">
+				      <h3><?php _e( 'Message Box Style', 'site-launcher' );?></h3>
+				</td>
+			</tr>	
+			<tr valign="top">
+				<th scope="row" style="width:140px;text-align:left;padding-top:8px;padding-bottom:8px;"><label > <?php _e( 'Show Message Box:', 'site-launcher' );?> </label></th>
+				<td style="padding-top:8px;padding-bottom:8px;">
+					<fieldset>
+						<legend class="screen-reader-text">
+						<span><?php _e( 'Message Box', 'site-launcher' );?></span>
+						</legend>
+						<label title="Show message box.">
+						  <input type="radio" name="show_message_box" id="showmessagebox" value="1"<?php if ( $this->get_display_option( 'show_message_box' ) != '0') { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Show', 'site-launcher' );?>
+						</label>&nbsp;&nbsp;
+						<label title="Hide message box.">
+						  <input type="radio" name="show_message_box" id="hidemessagebox" value="0"<?php if ( $this->get_display_option( 'show_message_box' ) == '0') { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Hide', 'site-launcher' );?>
+						</label>
+					</fieldset>
+				</td>
+			</tr>
+			</table>
+			<table id="showmessageboxdetails" style="margin-top:-15px;">
+			<tr valign="top">
+				<th scope="row" style="padding-top:15px;width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;padding-top:15px">
 				<input style="width:70px;" type="text" name="text_color" class="text_color" value="<?php echo $this->get_display_option( 'text_color' ); ?>" data-default-color="#ffffff" />
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Font:', 'site-launcher' );?>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Font:', 'site-launcher' );?>
 				</th>
 				<td style="padding-left:5px;">
 					<table style="margin-top:-2px;">
@@ -623,13 +663,13 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Message Box Width:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Message Box Width:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<input style="width:70px;" type="text" name="message_box_width" id="message_box_width" value="<?php echo $this->get_display_option( 'message_box_width' ); ?>" />
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Message Box Opacity:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Message Box Opacity:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 					<table style="margin-top:-2px;">
 						<tr>
@@ -644,7 +684,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;padding-top:4px;"><label for="message_box_border"> <?php _e( 'Message Box Border:', 'site-launcher' );?> </label></th>
+				<th scope="row" style="width:140px;text-align:left;padding-top:4px;"><label for="message_box_border"> <?php _e( 'Message Box Border:', 'site-launcher' );?> </label></th>
 				<td style="padding-top:4px;">
 					<fieldset>
 						<legend class="screen-reader-text">
@@ -663,7 +703,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;padding-top:8px;padding-bottom:8px;"><label > <?php _e( 'Show log-in form:', 'site-launcher' );?> </label></th>
+				<th scope="row" style="width:140px;text-align:left;padding-top:8px;padding-bottom:8px;"><label > <?php _e( 'Show Log-in Form:', 'site-launcher' );?> </label></th>
 				<td style="padding-top:8px;padding-bottom:8px;">
 					<fieldset>
 						<legend class="screen-reader-text">
@@ -679,14 +719,14 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top" id="loginmessageinput" <?php if ( ! $this->get_display_option( 'show_login' )) echo ' style="display:none;"'; ?> >
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Log-in Message:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Log-in Message:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<input style="" type="text" name="login_message" id="login_message" value="<?php echo $this->get_display_option( 'login_message' ); ?>" />
 				</td>
 			</tr>
-			
+
 		</table>
-		<table class="admin-table divider">
+		<table class="admin-table divider" style="margin-top:20px;">
 			<tr>
 				<td colspan="2">
 					<h3 title="Display site as if launched for IP addresses on this list"><?php _e( 'IP Address Whitelist', 'site-launcher' );?></h3>
@@ -810,7 +850,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 		
 		<table class="admin-table" id="setredirectsuspended" <?php if ( get_option( 'site_launcher_action_suspended' ) == 'show_page' || get_option( 'site_launcher_action_suspended' ) === false ) echo 'style="display:none;"'; ?> >
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'URL to redirect to:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'URL to redirect to:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<?php if ( ! get_option( 'site_launcher_redirect_url_suspended' ) &&  get_option( 'site_launcher_action_suspended' ) == 'redirect' ) echo '<span style="color:#bf0000;">Please enter a valid URL.</span><br />';
 				$url = get_option( 'site_launcher_redirect_url_suspended' );
@@ -822,28 +862,25 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 		</table>
 			
 		<table class="admin-table divider" id="suspendedpage" <?php if ( get_option( 'site_launcher_action_suspended' ) == 'redirect' ) echo 'style="display:none;"'; ?> >
+
 			<tr>
 				<td colspan="2">
-				      <h3><?php _e( 'Show Custom Site Suspended Page', 'site-launcher' );?></h3>
+				      <h3 style="font-size:20px;"><?php _e( 'Site Suspended Page Settings', 'site-launcher' );?></h3>
 				</td>
 			</tr>
-
-			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;"><label for="message_text"> <?php _e( 'Message Text:', 'site-launcher' );?> </label></th>
-				<td><?php echo '<textarea rows="2" cols="42" name="message_text_suspended" id="message_text_suspended" class="regular-text">'.trim( $this->get_display_option( 'message_text_suspended' ) ).'</textarea>'; ?></td>
-			</tr>
-			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;"><label for="fine_print"> <?php _e( 'Fine Print:<br />(html allowed)', 'site-launcher' );?> </label></th>
-				<td><?php echo '<textarea rows="4" cols="42" name="fine_print_suspended" id="fine_print_suspended" class="regular-text">'.trim( $this->get_display_option( 'fine_print_suspended' ) ).'</textarea>'; ?></td>
+			<tr>
+				<td colspan="2" class="dotted-divider">
+				      <h3><?php _e( 'Page Background', 'site-launcher' );?></h3>
+				</td>
 			</tr>
 			<tr>
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Background Color', 'site-launcher' ) ?>:</th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Background Color', 'site-launcher' ) ?>:</th>
 				<td style="padding-left:5px;">
 				<input style="width:70px;" type="text" name="background_color_suspended" class="background_color_suspended" value="<?php echo $this->get_display_option( 'background_color_suspended' ); ?>" data-default-color="#530000" />
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Background Image:', 'site-launcher' );?></th><td>&nbsp;</td>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Background Image:', 'site-launcher' );?></th><td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -871,14 +908,57 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				<?php } ?>
 				</td>
 			</tr>
+			<tr>
+				<td colspan="2" style="height:15px;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="dotted-divider">
+				      <h3><?php _e( 'Message Box Content', 'site-launcher' );?></h3>
+				</td>
+			</tr>	
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;"><label for="message_text"> <?php _e( 'Message Text:', 'site-launcher' );?> </label></th>
+				<td><?php echo '<textarea rows="2" cols="42" name="message_text_suspended" id="message_text_suspended" class="regular-text">'.trim( $this->get_display_option( 'message_text_suspended' ) ).'</textarea>'; ?></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row" style="width:140px;text-align:left;"><label for="fine_print"> <?php _e( 'Fine Print:<br />(html allowed)', 'site-launcher' );?> </label></th>
+				<td><?php echo '<textarea rows="4" cols="42" name="fine_print_suspended" id="fine_print_suspended" class="regular-text">'.trim( $this->get_display_option( 'fine_print_suspended' ) ).'</textarea>'; ?></td>
+			</tr>
+			</tr>
+			<tr>
+				<td colspan="2" style="height:15px;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="dotted-divider">
+				      <h3><?php _e( 'Message Box Style', 'site-launcher' );?></h3>
+				</td>
+			</tr>	
+			<tr valign="top">
+				<th scope="row" style="width:140px;text-align:left;padding-top:8px;padding-bottom:8px;"><label > <?php _e( 'Show Message Box:', 'site-launcher' );?> </label></th>
+				<td style="padding-top:8px;padding-bottom:8px;">
+					<fieldset>
+						<legend class="screen-reader-text">
+						<span><?php _e( 'Message Box', 'site-launcher' );?></span>
+						</legend>
+						<label title="Show log-in">
+						  <input type="radio" name="show_message_box_suspended" id="showmessageboxsuspended" value="1"<?php if ( $this->get_display_option( 'show_message_box_suspended' ) != '0') { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Show', 'site-launcher' );?>
+						</label>&nbsp;&nbsp;
+						<label title="Hide log-in">
+						  <input type="radio" name="show_message_box_suspended" id="hidemessageboxsuspended" value="0"<?php if ( $this->get_display_option( 'show_message_box_suspended' ) == '0') { echo ' checked="checked"'; } ?> >&nbsp;<?php _e( 'Hide', 'site-launcher' );?>
+						</label>
+					</fieldset>
+				</td>
+			</tr>
+			</table>
+			<table id="showmessageboxdetailssuspended" style="margin-top:-15px;">
+			<tr valign="top">
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Text Color:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<input style="width:70px;" type="text" name="text_color_suspended" class="text_color_suspended" value="<?php echo $this->get_display_option( 'text_color_suspended' ); ?>" data-default-color="#ffffff" />
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Font:', 'site-launcher' );?>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Font:', 'site-launcher' );?>
 				</th>
 				<td style="padding-left:5px;">
 					<table style="margin-top:-2px;">
@@ -906,13 +986,13 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Message Box Width:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Message Box Width:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<input style="width:70px;" type="text" name="message_box_width_suspended" id="message_box_width_suspended" value="<?php echo $this->get_display_option( 'message_box_width_suspended' ); ?>" />
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Message Box Opacity:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Message Box Opacity:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 					<table style="margin-top:-2px;">
 						<tr>
@@ -927,7 +1007,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;padding-top:4px;"><label for="message_box_border_suspended"> <?php _e( 'Message Box Border:', 'site-launcher' );?> </label></th>
+				<th scope="row" style="width:140px;text-align:left;padding-top:4px;"><label for="message_box_border_suspended"> <?php _e( 'Message Box Border:', 'site-launcher' );?> </label></th>
 				<td style="padding-top:4px;">
 					<fieldset>
 						<legend class="screen-reader-text">
@@ -946,7 +1026,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" style="width:140px;text-align:right;padding-top:8px;padding-bottom:8px;"><label for="show_login_suspended"> <?php _e( 'Show log-in form:', 'site-launcher' );?> </label></th>
+				<th scope="row" style="width:140px;text-align:left;padding-top:8px;padding-bottom:8px;"><label for="show_login_suspended"> <?php _e( 'Show Log-in Form:', 'site-launcher' );?> </label></th>
 				<td style="padding-top:8px;padding-bottom:8px;">
 					<fieldset>
 						<legend class="screen-reader-text">
@@ -962,14 +1042,14 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 				</td>
 			</tr>
 			<tr valign="top" id="loginmessageinputsuspended" <?php if ( ! $this->get_display_option( 'show_login_suspended' )) echo ' style="display:none;"'; ?> >
-				<th scope="row" style="width:140px;text-align:right;vertical-align:middle;"><?php _e( 'Log-in Message:', 'site-launcher' );?></th>
+				<th scope="row" style="width:140px;text-align:left;vertical-align:middle;"><?php _e( 'Log-in Message:', 'site-launcher' );?></th>
 				<td style="padding-left:5px;">
 				<input style="" type="text" name="login_message_suspended" id="login_message_suspended" value="<?php echo $this->get_display_option( 'login_message_suspended' ); ?>" />
 				</td>
 			</tr>
 
 		</table>
-		<table class="admin-table divider">
+		<table class="admin-table divider" style="margin-top:20px;">
 			<tr>
 				<td colspan="2">
 					<h3 title="Display site as if launched for IP addresses on this list"><?php _e( 'IP Address Whitelist', 'site-launcher' );?></h3>

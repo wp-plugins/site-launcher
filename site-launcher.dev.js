@@ -24,10 +24,16 @@ document.observe( "dom:loaded", function()
 	Event.observe( 'showlogin', 'click', showLoginMessageInput );
 	Event.observe( 'hidelogin', 'click', hideLoginMessageInput );
 	Event.observe( 'showloginsuspended', 'click', showLoginMessageInputSuspended );
+	Event.observe( 'hideloginsuspended', 'click', hideLoginMessageInputSuspended );
 	Event.observe( 'redirect', 'click', showRedirect );
 	Event.observe( 'showpage', 'click', showPage );
 	Event.observe( 'redirectsuspended', 'click', showRedirectSuspended );
 	Event.observe( 'showpagesuspended', 'click', showPageSuspended );
+	Event.observe( 'showmessagebox', 'click', showMessageBox );
+	Event.observe( 'hidemessagebox', 'click', hideMessageBox );
+	Event.observe( 'showmessageboxsuspended', 'click', showMessageBoxSuspended );
+	Event.observe( 'hidemessageboxsuspended', 'click', hideMessageBoxSuspended );
+
 });
 
 function alertMe()
@@ -115,6 +121,26 @@ function showPageSuspended()
 {
 	document.getElementById( 'setredirectsuspended' ).style.display = 'none';
 	document.getElementById( 'suspendedpage' ).style.display = 'table';	
+}
+
+function showMessageBox()
+{
+	document.getElementById( 'showmessageboxdetails' ).style.display = 'table';	
+}
+
+function hideMessageBox()
+{
+	document.getElementById( 'showmessageboxdetails' ).style.display = 'none';	
+}
+
+function showMessageBoxSuspended()
+{
+	document.getElementById( 'showmessageboxdetailssuspended' ).style.display = 'table';	
+}
+
+function hideMessageBoxSuspended()
+{
+	document.getElementById( 'showmessageboxdetailssuspended' ).style.display = 'none';	
 }
 
 

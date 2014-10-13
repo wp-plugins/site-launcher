@@ -1,18 +1,18 @@
 === Site Launcher ===
 Contributors: saill
 Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
-Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
+Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, log in, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
 Requires at least: 2.7
 Tested up to: 4.0.0
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Set a date to launch or suspend your site with custom "coming soon" and "site suspended" pages or with a redirect.
+Timed launch or suspension of your site with custom "site unavailable" pages or with a redirect.
 
 == Description ==
 
-Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates beautiful, Coming Soon and Site Suspended pages with customizable background image or colors and text. Alternatively allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
+Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates beautiful Coming Soon and Site Suspended pages with customizable background image or color and and an optional message box that can also allow users to log in from the coming soon page. Alternatively allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
 
 == Installation ==
 
@@ -42,8 +42,11 @@ YES! Please contact me at saill@wickedcleverlabs.com if you would like to transl
 
 == Changelog ==
 
+= 0.9.2
+* Rearranged inputs so they are more sensible and less overwhelming, allow message box to be hidden, changed default background image to construction site.
+
 = 0.9.1
-* Made background display code bulletproof
+* Made background display code more bulletproof on a variety of screen sizes.
 
 = 0.9.0
 * Added some beautiful background images!

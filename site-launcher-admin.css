@@ -33,7 +33,9 @@
 .site-launcher-box table.divider {
 	border-top:1px solid #ddd;
 }
-
+.site-launcher-box table td.dotted-divider {
+	border-top:1px dotted #ddd;
+}
 #aa, #jj, #hh, #mn, #aa_s, #jj_s, #hh_s, #mn_s, #ampm, #ampm_s {
 	padding: 1px;
 	font-size: 12px;
