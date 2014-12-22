@@ -3,8 +3,8 @@ Contributors: saill
 Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
 Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, log in, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
 Requires at least: 2.7
-Tested up to: 4.0.0
-Stable tag: 0.9.2
+Tested up to: 4.1.0
+Stable tag: 0.9.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
