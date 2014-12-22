@@ -3,7 +3,7 @@
  Plugin Name: Site Launcher
  Plugin URI: http://www.wickedcleverlabs.com/site-launcher
  Description: Lets you set a date to launch or suspend your site automatically. Lets you choose which admins have access to the plugin settings. Generates beautiful Coming Soon and Site Suspended pages with customizable background image or color and and an optional message box that can also allow users to log in from the coming soon page. Alternatively allows you to redirect to a different URL. This plugin is based on the <a href="https://wordpress.org/plugins/underconstruction/" target="_blank">underConstruction</a> plugin. A complete description along with screenshots and usage instructions is <a href="http://www.wickedcleverlabs.com/site-launcher/" target="_blank">here</a>.
- Version: 0.9.2
+ Version: 0.9.3
  Author: Saill White
  Author URI: http://www.wickedcleverlabs.com/
  Text Domain: site-launcher
