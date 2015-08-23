@@ -3,8 +3,8 @@ Contributors: saill
 Donate link: http://www.wickedcleverlabs.com/site-launcher/#donate
 Tags: site launcher, site suspended, disable website, suspend website, launch, suspend, disable, coming soon, under construction, log in, launch timer, countdown, disable site, suspend site, redirect, redirect url, forward domain
 Requires at least: 2.7
-Tested up to: 4.2.1
-Stable tag: 0.9.3
+Tested up to: 4.3
+Stable tag: 0.9.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -41,6 +41,11 @@ YES! Please contact me at saill@wickedcleverlabs.com if you would like to transl
 6. The Site Launcher admin page in Site Suspended mode.
 
 == Changelog ==
+= 0.9.4
+* Tested with WP v 4.3.0, added rocket background.
+
+= 0.9.3
+* Tested with WP v 4.2.4.
 
 = 0.9.2
 * Rearranged inputs so they are more sensible and less overwhelming, allow message box to be hidden, changed default background image to construction site.

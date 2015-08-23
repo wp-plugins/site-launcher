@@ -104,9 +104,9 @@ function display_site_down_page( $options, $status, $path )
 		<?php } else { ?>
 			display: block;
 		<?php } ?>
-		max-width:80%;
+		max-width: 80%;
 		width:  <?php echo $message_box_width; ?>;
-		padding:70px 40px;
+		padding: 70px 40px;
 		<?php if ( $status == 'coming_soon' ) { ?>
 			background-color: rgba(255,255,255, <?php echo $message_box_opacity; ?>);
 		<?php } else { ?>
@@ -130,7 +130,7 @@ function display_site_down_page( $options, $status, $path )
 		}
 
 		p.fineprint {
-		font-size:22px;
+		font-size: 22px;
 		}
 		
 		a {
