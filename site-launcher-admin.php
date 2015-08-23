@@ -562,6 +562,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 			</tr>
 			<tr>
 				<td colspan="2">
+				To add your own background image (at least 1200px x 800px) upload it to the /images/full subdirectory of this plugin.<br />
 				<?php
 				$imagefiles = $this->get_filenames('full');
 				$fullpathname = WP_PLUGIN_URL.'/'.$this->installed_folder.'/images/full/';
@@ -884,6 +885,7 @@ if ( is_numeric( $this->get_site_suspend_date() ) ) $show_suspend_julian = $susp
 			</tr>
 			<tr>
 				<td colspan="2">
+				To add your own background image (at least 1200px x 800px) upload it to the /images/full subdirectory of this plugin.<br />
 				<?php
 				$imagefiles = $this->get_filenames('full');
 				$fullpathname = WP_PLUGIN_URL.'/'.$this->installed_folder.'/images/full/';
